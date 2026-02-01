@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aliaksandr Belafostau - IT & KI Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/white.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary: #1e3a5f;
+            --accent: #e63946;
+            --success: #22c55e;
+            --light-bg: #f8f9fa;
+            --gradient-primary: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            --pro-arbeit-red: #e63946;
+        }
+
+        .reveal {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .reveal .slides section {
+            padding: 8px 18px;
+            height: 100%;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden !important;
+            box-sizing: border-box;
+        }
+
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 0.95em;
+            margin: 0 0 0.35em 0;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.2em;
+            display: inline-block;
+            width: 100%;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .reveal h3 {
+            color: var(--accent);
+            font-size: 0.65em;
+            margin: 0 0 0.25em 0;
+            font-weight: 600;
+        }
+
+        .reveal p, .reveal li {
+            font-size: 0.6em;
+            line-height: 1.3;
+        }
+
+        /* TITEL */
+        .title-slide {
+            background: var(--gradient-primary) !important;
+            text-align: center !important;
+        }
+
+        .title-slide h1 {
+            color: white;
+            font-size: 2.2em;
+            margin-bottom: 0.25em;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .title-slide .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1em;
+            margin-bottom: 0.9em;
+            font-weight: 300;
+            line-height: 1.3;
+        }
+
+        .title-slide .position-box {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 0.9em 1.6em;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        .title-slide .position-box p {
+            color: white;
+            margin: 0;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .title-slide .position-box .job-title {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 0.3em;
+        }
+
+        /* GRID LAYOUTS */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5em;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.4em;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.35em;
+        }
+
+        /* BOX */
+        .box {
+            background: var(--light-bg);
+            border-radius: 6px;
+            padding: 0.4em 0.6em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+        }
+
+        .box ul {
+            margin: 0;
+            padding-left: 1em;
+            font-size: 0.6em;
+            line-height: 1.3;
+        }
+
+        .box li {
+            margin-bottom: 0.15em;
+        }
+
+        /* PROFIL */
+        .profile-section {
+            display: flex;
+            gap: 1.2em;
+            align-items: center;
+            margin-bottom: 0.5em;
+        }
+
+        .profile-photo {
+            width: 140px;
+            height: 170px;
+            border-radius: 10px;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: var(--primary);
+            border: 4px solid var(--accent);
+            flex-shrink: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.3);
+            border-color: var(--primary);
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info p {
+            margin: 0.15em 0;
+            font-size: 0.65em;
+        }
+
+        .profile-info .name {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.15em;
+        }
+
+        .profile-info .role {
+            font-size: 0.75em;
+            color: var(--accent);
+            margin-bottom: 0.3em;
+        }
+
+        /* TIMELINE */
+        .timeline-compact {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5em;
+            margin-bottom: 0.5em;
+            position: relative;
+        }
+
+        .timeline-compact::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent) 0%, var(--accent) 66%, var(--success) 100%);
+            z-index: 0;
+        }
+
+        .timeline-step {
+            flex: 1;
+            background: white;
+            border-radius: 6px;
+            padding: 0.45em 0.55em;
+            border-left: 3px solid var(--accent);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-step:last-child {
+            border-left-color: var(--success);
+        }
+
+        .timeline-step .year {
+            font-size: 0.55em;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.15em;
+        }
+
+        .timeline-step:last-child .year {
+            color: var(--success);
+        }
+
+        .timeline-step .title {
+            font-size: 0.62em;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.1em;
+        }
+
+        .timeline-step .desc {
+            font-size: 0.55em;
+            color: #555;
+            line-height: 1.25;
+        }
+
+        /* SKILL BADGES */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5em;
+        }
+
+        .skill-category {
+            background: white;
+            border-radius: 6px;
+            padding: 0.5em 0.65em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            border-top: 2px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        .skill-category h4 {
+            font-size: 0.62em;
+            color: var(--primary);
+            margin: 0 0 0.3em 0;
+            font-weight: 600;
+        }
+
+        .skill-category p {
+            font-size: 0.58em;
+            color: #555;
+            margin: 0.12em 0;
+            line-height: 1.3;
+        }
+
+        /* MATCH ITEMS */
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.3em;
+        }
+
+        .match-item {
+            background: white;
+            border-radius: 5px;
+            padding: 0.3em 0.5em;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 0.4em;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .match-item:hover {
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        }
+
+        .match-item .arrow {
+            color: var(--success);
+            font-size: 0.8em;
+            flex-shrink: 0;
+        }
+
+        .match-item .left {
+            flex: 1;
+            text-align: right;
+            padding-right: 0.3em;
+            border-right: 2px solid #eee;
+        }
+
+        .match-item .left .label {
+            font-size: 0.42em;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .match-item .left .text {
+            font-size: 0.54em;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .match-item .right {
+            flex: 1;
+        }
+
+        .match-item .right .label {
+            font-size: 0.42em;
+            color: var(--success);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .match-item .right .text {
+            font-size: 0.54em;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* KI HIGHLIGHT */
+        .ai-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 0.6em 0.8em;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .ai-highlight h3 {
+            color: white;
+            margin-bottom: 0.3em;
+            font-size: 0.75em;
+        }
+
+        .ai-highlight p {
+            font-size: 0.6em;
+            margin: 0.15em 0;
+            line-height: 1.3;
+        }
+
+        .ai-tools {
+            display: flex;
+            justify-content: center;
+            gap: 0.5em;
+            flex-wrap: wrap;
+            margin-top: 0.5em;
+        }
+
+        .ai-tool-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25em 0.6em;
+            border-radius: 12px;
+            font-size: 0.52em;
+            backdrop-filter: blur(5px);
+        }
+
+        /* VISION CARDS */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5em;
+        }
+
+        .vision-card {
+            background: white;
+            border-radius: 6px;
+            padding: 0.5em 0.4em;
+            text-align: center;
+            border-top: 3px solid var(--accent);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .vision-card:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+
+        .vision-card i {
+            font-size: 1.1em;
+            color: var(--primary);
+            margin-bottom: 0.25em;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .vision-card:hover i {
+            transform: scale(1.15);
+        }
+
+        .vision-card h4 {
+            font-size: 0.6em;
+            margin: 0.15em 0;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .vision-card p {
+            font-size: 0.52em;
+            color: #555;
+            margin: 0;
+            line-height: 1.25;
+        }
+
+        /* TRANSFERABLE SKILLS */
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.45em;
+        }
+
+        .skill-badge {
+            background: white;
+            border-radius: 6px;
+            padding: 0.4em 0.6em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 0.45em;
+        }
+
+        .skill-badge i {
+            color: var(--accent);
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .skill-badge .text {
+            font-size: 0.56em;
+            color: var(--primary);
+            font-weight: 500;
+            line-height: 1.25;
+        }
+
+        /* CLOSING */
+        .closing-slide {
+            text-align: center !important;
+        }
+
+        .closing-slide .tagline {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.6em;
+        }
+
+        .contact-box {
+            background: white;
+            border-radius: 12px;
+            padding: 0.8em 1.4em;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            margin-top: 0.5em;
+            transition: all 0.3s ease;
+        }
+
+        .contact-box:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+        }
+
+        .contact-box p {
+            margin: 0.3em 0;
+            font-size: 0.8em;
+        }
+
+        .contact-box i {
+            color: var(--accent);
+            width: 22px;
+        }
+
+        .ai-credit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.6em 1.2em;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 0.6em;
+            font-size: 0.75em;
+            box-shadow: 0 3px 12px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .ai-credit:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* FOOTER */
+        .slide-footer {
+            position: fixed;
+            bottom: 15px;
+            left: 40px;
+            font-size: 0.65em;
+            color: #aaa;
+        }
+
+        /* REVEAL OVERRIDES */
+        .reveal .progress span {
+            background: var(--accent);
+        }
+
+        .reveal .controls {
+            color: var(--primary);
+        }
+
+        .reveal .slide-number {
+            font-size: 14px;
+            color: #999;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        /* ANIMATIONEN */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .title-slide h1 {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .title-slide .subtitle {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .title-slide .position-box {
+            animation: fadeInUp 0.8s ease-out 0.4s both, pulse 3s ease-in-out 1.5s infinite;
+        }
+
+        .title-slide .position-box .job-title {
+            background: linear-gradient(90deg, #fff, #ffd700, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 3s linear 1s infinite;
+        }
+
+        /* Floating icon animation */
+        .title-slide .position-box i {
+            animation: float 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+
+        /* BADGES */
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.5em;
+            flex-wrap: wrap;
+            margin: 0.6em 0;
+        }
+
+        .badge {
+            background: white;
+            border: 2px solid var(--light-bg);
+            border-radius: 20px;
+            padding: 0.35em 0.85em;
+            font-size: 0.7em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.35em;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-color: var(--accent);
+        }
+
+        .badge i {
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .badge:hover i {
+            transform: scale(1.2);
+        }
+
+        /* HIGHLIGHT BOX */
+        .highlight-box {
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 8px;
+            padding: 0.5em 0.75em;
+            text-align: center;
+            margin: 0.5em 0;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(30, 58, 95, 0.4);
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-size: 0.62em;
+            line-height: 1.3;
+        }
+
+        .highlight-box strong {
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- FOLIE 1: TITEL -->
+            <section class="title-slide">
+                <h1>Aliaksandr Belafostau</h1>
+                <p class="subtitle">IT-Fachinformatiker | KI-Enthusiast | Prozessoptimierer</p>
+                <div class="position-box">
+                    <p class="job-title"><i class="fas fa-rocket"></i> Bereit für die IT-Welt</p>
+                    <p>12 Jahre Führung + Fachinformatiker + KI-Praxis</p>
+                </div>
+            </section>
+
+            <!-- FOLIE 2: ÜBER MICH - PROFIL -->
+            <section>
+                <h2><i class="fas fa-user-circle"></i> Über mich</h2>
+                <div class="profile-section">
+                    <div class="profile-photo">
+                        <img src="IMG_20260102_104159.jpg" alt="Aliaksandr Belafostau">
+                    </div>
+                    <div class="profile-info">
+                        <div class="name">Aliaksandr Belafostau</div>
+                        <div class="role">IT-Quereinsteiger | Fachinformatiker</div>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Wohnort:</strong> Langen (Hessen)</p>
+                        <p><i class="fas fa-phone"></i> <strong>Telefon:</strong> 0170 - 496 2346</p>
+                        <p><i class="fas fa-envelope"></i> <strong>E-Mail:</strong> alexbelafostau@gmail.com</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 0.3em;">
+                    <p><i class="fas fa-star"></i> <strong>Fachinformatiker Note 1,8</strong> | 12+ Jahre Führung | KI-Enthusiast</p>
+                </div>
+            </section>
+
+            <!-- FOLIE 3: WERDEGANG - TIMELINE -->
+            <section>
+                <h2><i class="fas fa-road"></i> Mein Werdegang</h2>
+                <div class="timeline-compact">
+                    <div class="timeline-step">
+                        <div class="year">1999 – 2003</div>
+                        <div class="title">Uni Weißrussland</div>
+                        <div class="desc">Lehramt Englisch<br>(ohne Abschluss)</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="year">2005 – 2014</div>
+                        <div class="title">Uni Mainz</div>
+                        <div class="desc">Anglistik & Romanistik<br>(ohne Abschluss)</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="year">2012 – heute</div>
+                        <div class="title">DHL Airways</div>
+                        <div class="desc">Agent → Deputy Supervisor<br><strong>12+ Jahre, 6+ Führung</strong></div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="year">2023 – 2025</div>
+                        <div class="title">ILS Fernstudium</div>
+                        <div class="desc">Fachinformatiker<br><strong>Note 1,8 ✓</strong></div>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 0.5em;">
+                    <p><i class="fas fa-arrow-right"></i> Aus Erfahrung gelernt: <strong>Diesmal mit Abschluss!</strong></p>
+                </div>
+            </section>
+
+            <!-- FOLIE 4: IT-QUALIFIKATIONEN -->
+            <section>
+                <h2><i class="fas fa-code"></i> Mein Tech-Stack</h2>
+                <div class="skill-grid">
+                    <div class="skill-category">
+                        <h4><i class="fas fa-laptop-code"></i> Code</h4>
+                        <p>C# | VBA | Python | JavaScript</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4><i class="fas fa-database"></i> Daten</h4>
+                        <p>SQL | MS Access | Reports</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4><i class="fas fa-robot"></i> KI-Tools</h4>
+                        <p>Claude | ChatGPT | Gemini | N8n</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4><i class="fas fa-project-diagram"></i> Prozesse</h4>
+                        <p>BPMN | Agile | MS Office</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 0.5em;">
+                    <p><i class="fas fa-award"></i> <strong>688 Stunden ILS-Ausbildung</strong> | Note 1,8</p>
+                </div>
+            </section>
+
+            <!-- FOLIE 5: MEINE PROJEKTE -->
+            <section>
+                <h2><i class="fas fa-folder-open"></i> Meine Projekte</h2>
+                <div class="vision-grid">
+                    <div class="vision-card" style="border-top-color: #667eea;">
+                        <i class="fas fa-file-powerpoint" style="color: #667eea;"></i>
+                        <h4>Diese Präsentation</h4>
+                        <p>Komplett mit Claude Code erstellt</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: #ff6b35;">
+                        <i class="fas fa-cogs" style="color: #ff6b35;"></i>
+                        <h4>N8n Automations</h4>
+                        <p>KI-Workflows für Alltags-Aufgaben</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: #22c55e;">
+                        <i class="fab fa-github" style="color: #22c55e;"></i>
+                        <h4>GitHub Projekte</h4>
+                        <p>Code-Beispiele & Experimente</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: #3b82f6;">
+                        <i class="fas fa-database" style="color: #3b82f6;"></i>
+                        <h4>SQL & Datenbank</h4>
+                        <p>MS Access Anwendungen</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: #f59e0b;">
+                        <i class="fas fa-robot" style="color: #f59e0b;"></i>
+                        <h4>Prompt Engineering</h4>
+                        <p>Effektive LLM-Nutzung</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: #ec4899;">
+                        <i class="fas fa-chart-bar" style="color: #ec4899;"></i>
+                        <h4>Excel VBA Tools</h4>
+                        <p>Automatisierung bei DHL</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 0.5em;">
+                    <p><i class="fab fa-github"></i> <strong>github.com/alexbelafostau</strong> | Projekte & Code-Beispiele</p>
+                </div>
+            </section>
+
+            <!-- FOLIE 6: KI-ERFAHRUNG HIGHLIGHT -->
+            <section>
+                <h2><i class="fas fa-robot"></i> KI? Mache ich schon!</h2>
+                <div class="ai-highlight">
+                    <h3><i class="fas fa-brain"></i> Nicht nur Theorie - echte Praxis</h3>
+                    <div class="ai-tools">
+                        <div class="ai-tool-badge"><i class="fas fa-robot"></i> Claude Code</div>
+                        <div class="ai-tool-badge"><i class="fas fa-comment-dots"></i> ChatGPT</div>
+                        <div class="ai-tool-badge"><i class="fas fa-microchip"></i> Gemini</div>
+                        <div class="ai-tool-badge"><i class="fas fa-project-diagram"></i> N8n</div>
+                    </div>
+                </div>
+                <div class="vision-grid" style="margin-top: 0.6em;">
+                    <div class="vision-card">
+                        <i class="fas fa-file-code"></i>
+                        <h4>Diese Präsentation</h4>
+                        <p>Mit Claude Code erstellt</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-cogs"></i>
+                        <h4>N8n-Workflows</h4>
+                        <p>KI-Automatisierungen gebaut</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-code-branch"></i>
+                        <h4>Code mit KI</h4>
+                        <p>Produktiv programmieren</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-comments"></i>
+                        <h4>Chatbots</h4>
+                        <p>Support automatisieren</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-book-open"></i>
+                        <h4>RAG-Systeme</h4>
+                        <p>Wissen abrufbar machen</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>Innovation</h4>
+                        <p>Neue Ideen umsetzen</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOLIE 7: TRANSFERABLE SKILLS -->
+            <section>
+                <h2><i class="fas fa-exchange-alt"></i> Was ich aus der Logistik mitbringe</h2>
+                <div class="vision-grid">
+                    <div class="vision-card">
+                        <i class="fas fa-network-wired"></i>
+                        <h4>Systemüberwachung</h4>
+                        <p>DHL Netzwerk (Luft/Boden)</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-users-cog"></i>
+                        <h4>Schnittstellen</h4>
+                        <p>Abteilungen koordinieren</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-clock"></i>
+                        <h4>Zeitdruck</h4>
+                        <p>Schnelle Entscheidungen</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-users"></i>
+                        <h4>Teamführung</h4>
+                        <p>6+ Jahre Verantwortung</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Optimierung</h4>
+                        <p>Prozesse verbessern</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h4>Qualität</h4>
+                        <p>Dokumentation & Standards</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 0.5em;">
+                    <p><i class="fas fa-lightbulb"></i> <strong>Quereinsteiger-Vorteil:</strong> Frische Perspektive + bewährte Erfahrung</p>
+                </div>
+            </section>
+
+            <!-- FOLIE 8: WAS ICH SUCHE -->
+            <section>
+                <h2><i class="fas fa-search"></i> Was ich suche</h2>
+                <div class="vision-grid">
+                    <div class="vision-card" style="border-top-color: var(--success);">
+                        <i class="fas fa-robot" style="color: var(--success);"></i>
+                        <h4>KI im Fokus</h4>
+                        <p>Wo KI praktisch eingesetzt wird</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: var(--success);">
+                        <i class="fas fa-cogs" style="color: var(--success);"></i>
+                        <h4>Automatisierung</h4>
+                        <p>Prozesse digitalisieren</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: var(--success);">
+                        <i class="fas fa-users" style="color: var(--success);"></i>
+                        <h4>Gutes Team</h4>
+                        <p>Zusammenarbeit & Wachstum</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 0.6em;">
+                    <p><i class="fas fa-star"></i> <strong>Perfektes Timing:</strong> Frischer IT-Abschluss (04/2025) + KI-Boom + Bereit für Neustart</p>
+                </div>
+                <div class="badge-row" style="margin-top: 0.5em;">
+                    <div class="badge"><i class="fas fa-check"></i> IT-Administration</div>
+                    <div class="badge"><i class="fas fa-check"></i> Anwendungsentwicklung</div>
+                    <div class="badge"><i class="fas fa-check"></i> KI-Integration</div>
+                    <div class="badge"><i class="fas fa-check"></i> Prozessoptimierung</div>
+                </div>
+            </section>
+
+            <!-- FOLIE 9: WAS ICH BIETEN KANN -->
+            <section>
+                <h2><i class="fas fa-rocket"></i> Was ich bieten kann</h2>
+                <div class="vision-grid">
+                    <div class="vision-card">
+                        <i class="fas fa-cog"></i>
+                        <h4>Software Administration</h4>
+                        <p>Anwendungen betreuen & weiterentwickeln</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-robot"></i>
+                        <h4>KI-Lösungen</h4>
+                        <p>Chatbots, RAG-Systeme, Automatisierung</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-code"></i>
+                        <h4>Scripting</h4>
+                        <p>Python, C#, VBA für Automatisierung</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-database"></i>
+                        <h4>Datenbanken</h4>
+                        <p>SQL-Abfragen, Reports, Analysen</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-plug"></i>
+                        <h4>Integration</h4>
+                        <p>Systeme verbinden, APIs nutzen</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-project-diagram"></i>
+                        <h4>Prozesse</h4>
+                        <p>N8n-Workflows, BPMN, RPA</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-users"></i>
+                        <h4>Teamführung</h4>
+                        <p>6+ Jahre Führungserfahrung</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>Wissenstransfer</h4>
+                        <p>Kollegen für Tech begeistern</p>
+                    </div>
+                    <div class="vision-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>Innovation</h4>
+                        <p>Neue Technologien evaluieren</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOLIE 10: WARUM EIN QUEREINSTEIGER? -->
+            <section>
+                <h2><i class="fas fa-question-circle"></i> Warum ein Quereinsteiger?</h2>
+                <div class="vision-grid">
+                    <div class="vision-card" style="border-top-color: var(--success);">
+                        <i class="fas fa-user-tie" style="color: var(--success);"></i>
+                        <h4>Kein grüner Anfänger</h4>
+                        <p>12+ Jahre Berufserfahrung</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: var(--success);">
+                        <i class="fas fa-comments" style="color: var(--success);"></i>
+                        <h4>Versteht Anwender</h4>
+                        <p>War selbst jahrelang User</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: var(--success);">
+                        <i class="fas fa-eye" style="color: var(--success);"></i>
+                        <h4>Frischer Blick</h4>
+                        <p>Keine Betriebsblindheit</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: var(--success);">
+                        <i class="fas fa-fire" style="color: var(--success);"></i>
+                        <h4>Extra motiviert</h4>
+                        <p>Bewusste Entscheidung</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: var(--success);">
+                        <i class="fas fa-medal" style="color: var(--success);"></i>
+                        <h4>Bewiesen</h4>
+                        <p>ILS Note 1,8 = Durchhaltevermögen</p>
+                    </div>
+                    <div class="vision-card" style="border-top-color: var(--success);">
+                        <i class="fas fa-hands-helping" style="color: var(--success);"></i>
+                        <h4>Teamfähig</h4>
+                        <p>Führung + Zusammenarbeit</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOLIE 11: SOFT SKILLS & SPRACHEN -->
+            <section>
+                <h2><i class="fas fa-user-check"></i> Das Gesamtpaket</h2>
+                <div class="grid-2">
+                    <div class="ai-highlight" style="padding: 0.8em;">
+                        <h3 style="margin-bottom: 0.4em;"><i class="fas fa-globe"></i> 4 Sprachen</h3>
+                        <p><strong>DE</strong> C1+ | <strong>EN</strong> B2+ | <strong>RU</strong> Native | <strong>ES</strong> Basic</p>
+                    </div>
+                    <div class="box" style="text-align: center;">
+                        <h3><i class="fas fa-clock"></i> Verfügbarkeit</h3>
+                        <p><strong>4 Wochen Kündigungsfrist</strong> | Vollzeit</p>
+                    </div>
+                </div>
+                <div class="badge-row" style="margin-top: 0.6em;">
+                    <div class="badge"><i class="fas fa-users"></i> Teamführung</div>
+                    <div class="badge"><i class="fas fa-brain"></i> Analytisch</div>
+                    <div class="badge"><i class="fas fa-bolt"></i> Lösungsorientiert</div>
+                    <div class="badge"><i class="fas fa-shield-alt"></i> Zuverlässig</div>
+                    <div class="badge"><i class="fas fa-rocket"></i> Neugierig</div>
+                    <div class="badge"><i class="fas fa-coffee"></i> Stressresistent</div>
+                </div>
+            </section>
+
+            <!-- FOLIE 12: ABSCHLUSS & KONTAKT -->
+            <section class="closing-slide">
+                <h2><i class="fas fa-handshake"></i> Bereit, wenn Sie es sind!</h2>
+
+                <div class="highlight-box" style="margin: 0.5em auto; max-width: 600px;">
+                    <p><i class="fas fa-calendar-check"></i> <strong>Probearbeit?</strong> Gerne! | <strong>Vorstellungsgespräch?</strong> Jederzeit!</p>
+                </div>
+
+                <div class="contact-box">
+                    <p><i class="fas fa-user"></i> <strong>Aliaksandr Belafostau</strong></p>
+                    <p><i class="fas fa-phone"></i> 0170 - 496 2346</p>
+                    <p><i class="fas fa-envelope"></i> alexbelafostau@gmail.com</p>
+                    <p><i class="fab fa-linkedin"></i> linkedin.com/in/alexbelafostau</p>
+                </div>
+
+                <div class="ai-credit" style="margin-top: 0.5em;">
+                    <p style="margin: 0; font-size: 0.65em;"><i class="fas fa-robot"></i> <strong>Diese Präsentation = Claude Code + Ich</strong></p>
+                    <p style="margin: 0.1em 0 0 0; font-size: 0.55em;">Der beste Beweis für meine KI-Skills.</p>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="slide-footer">
+            Aliaksandr Belafostau | IT & KI Portfolio | Fachinformatiker Anwendungsentwicklung
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            center: false,
+            controls: true,
+            progress: true,
+            slideNumber: 'c/t',
+            width: 1280,
+            height: 720,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 3.0,
+            fragments: false,
+            autoPlayMedia: false,
+            preloadIframes: false,
+            overview: true,
+            touch: true,
+            loop: false,
+            rtl: false,
+            navigationMode: 'default',
+            shuffle: false,
+            embedded: false,
+            help: true,
+            showNotes: false,
+            autoSlide: 0,
+            autoSlideStoppable: true,
+            mouseWheel: false,
+            hideInactiveCursor: true,
+            hideCursorTime: 5000,
+            previewLinks: false,
+            viewDistance: 3,
+            mobileViewDistance: 2,
+            display: 'block',
+            disableLayout: false
+        });
+    </script>
+</body>
+</html>
