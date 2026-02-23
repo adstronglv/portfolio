@@ -1,0 +1,2575 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech-Wissen Nachschlagewerk — Interview-Vorbereitung</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --bg2: #1a1d27;
+  --bg3: #242836;
+  --border: #2d3348;
+  --text: #e4e4e7;
+  --text-dim: #9ca3af;
+  --accent: #6366f1;
+  --accent2: #818cf8;
+  --green: #22c55e;
+  --green-dim: #16a34a;
+  --orange: #f59e0b;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --cyan: #06b6d4;
+  --purple: #a855f7;
+  --pink: #ec4899;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Segoe UI', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+/* NAV */
+.nav {
+  position: fixed; top:0; left:0; width:240px; height:100vh;
+  background: var(--bg2); border-right: 1px solid var(--border);
+  overflow-y: auto; z-index: 100; padding: 16px 0;
+}
+.nav-title {
+  padding: 8px 20px 20px; font-size: 15px; font-weight: 700;
+  color: var(--accent2); letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border); margin-bottom: 8px;
+}
+.nav a {
+  display: block; padding: 8px 20px; color: var(--text-dim);
+  text-decoration: none; font-size: 13px; transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.nav a:hover, .nav a.active {
+  color: var(--text); background: var(--bg3);
+  border-left-color: var(--accent);
+}
+.nav-section {
+  padding: 12px 20px 4px; font-size: 11px; font-weight: 600;
+  color: var(--accent); text-transform: uppercase; letter-spacing: 1px;
+}
+/* MAIN */
+.main {
+  margin-left: 240px; padding: 32px 48px; max-width: 1100px;
+}
+h1 {
+  font-size: 28px; font-weight: 700; margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--accent2), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.subtitle { color: var(--text-dim); margin-bottom: 40px; font-size: 15px; }
+h2 {
+  font-size: 22px; font-weight: 600; margin: 48px 0 16px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+h2 .emoji { margin-right: 8px; }
+h3 { font-size: 16px; font-weight: 600; margin: 24px 0 8px; color: var(--accent2); }
+
+/* ARCHITECTURE DIAGRAM */
+.arch-diagram {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 32px; margin: 24px 0;
+  position: relative;
+}
+.arch-row {
+  display: flex; justify-content: center; gap: 16px;
+  margin: 8px 0; flex-wrap: wrap;
+}
+.arch-arrow {
+  text-align: center; color: var(--text-dim); font-size: 20px;
+  margin: 4px 0; user-select: none;
+}
+.arch-box {
+  background: var(--bg3); border: 2px solid var(--border);
+  border-radius: 10px; padding: 14px 20px; cursor: pointer;
+  transition: all 0.2s; text-align: center; min-width: 160px;
+  position: relative;
+}
+.arch-box:hover {
+  border-color: var(--accent); transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.2);
+}
+.arch-box.active {
+  border-color: var(--accent); background: rgba(99,102,241,0.1);
+}
+.arch-box .label { font-weight: 600; font-size: 14px; }
+.arch-box .sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+.arch-box.scheduler { border-color: var(--orange); }
+.arch-box.scheduler:hover { box-shadow: 0 4px 20px rgba(245,158,11,0.2); }
+.arch-box.orchestrator { border-color: var(--purple); }
+.arch-box.orchestrator:hover { box-shadow: 0 4px 20px rgba(168,85,247,0.2); }
+.arch-box.agent-scout { border-color: var(--green); }
+.arch-box.agent-analyst { border-color: var(--blue); }
+.arch-box.agent-planner { border-color: var(--cyan); }
+.arch-box.llm { border-color: var(--pink); }
+.arch-box.db { border-color: var(--orange); }
+.arch-box.server { border-color: var(--accent); }
+
+/* DETAIL PANEL */
+.detail-panel {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 24px; margin: 16px 0;
+  display: none; animation: fadeIn 0.2s;
+}
+.detail-panel.visible { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+.detail-panel h4 {
+  font-size: 16px; font-weight: 600; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.detail-panel .badge {
+  font-size: 10px; padding: 2px 8px; border-radius: 99px;
+  font-weight: 600; text-transform: uppercase;
+}
+.badge-file { background: rgba(99,102,241,0.2); color: var(--accent2); }
+.badge-interview { background: rgba(34,197,94,0.2); color: var(--green); }
+
+/* EXPANDABLE CARDS */
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; margin: 12px 0; overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px; cursor: pointer; display: flex;
+  justify-content: space-between; align-items: center;
+  transition: background 0.15s;
+}
+.card-header:hover { background: var(--bg3); }
+.card-header .title { font-weight: 600; font-size: 15px; }
+.card-header .arrow {
+  transition: transform 0.2s; color: var(--text-dim); font-size: 18px;
+}
+.card.open .card-header .arrow { transform: rotate(90deg); }
+.card-body {
+  padding: 0 20px; max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.card.open .card-body {
+  max-height: 3000px; padding: 0 20px 20px;
+}
+
+/* CODE BLOCKS */
+pre {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px; margin: 12px 0;
+  overflow-x: auto; font-size: 13px; line-height: 1.5;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+code {
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-size: 13px;
+}
+p code, li code {
+  background: var(--bg3); padding: 2px 6px; border-radius: 4px;
+  font-size: 12px; color: var(--cyan);
+}
+
+/* TABLES */
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0;
+  font-size: 13px;
+}
+th, td {
+  padding: 10px 14px; text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+th { color: var(--text-dim); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+td { color: var(--text); }
+tr:hover td { background: var(--bg3); }
+
+/* INTERVIEW BOX */
+.interview-box {
+  background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 10px; padding: 16px 20px; margin: 16px 0;
+}
+.interview-box::before {
+  content: "Im Interview sagen:";
+  display: block; font-size: 11px; font-weight: 700;
+  color: var(--green); text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 8px;
+}
+.interview-box p {
+  font-style: italic; color: var(--text); font-size: 14px; line-height: 1.7;
+}
+
+/* FLOW STEPS */
+.flow-steps { margin: 16px 0; }
+.flow-step {
+  display: flex; gap: 16px; align-items: flex-start; margin: 4px 0;
+}
+.flow-num {
+  min-width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.flow-num.scout { background: rgba(34,197,94,0.2); color: var(--green); }
+.flow-num.analyst { background: rgba(59,130,246,0.2); color: var(--blue); }
+.flow-num.planner { background: rgba(6,182,212,0.2); color: var(--cyan); }
+.flow-num.system { background: rgba(245,158,11,0.2); color: var(--orange); }
+.flow-text { padding-top: 5px; font-size: 14px; }
+.flow-arrow { text-align: center; color: var(--text-dim); margin: 2px 0 2px 8px; font-size: 14px; }
+
+/* TAGS */
+.tag {
+  display: inline-block; padding: 2px 10px; border-radius: 99px;
+  font-size: 11px; font-weight: 600; margin: 2px 4px 2px 0;
+}
+.tag-python { background: rgba(59,130,246,0.2); color: var(--blue); }
+.tag-sql { background: rgba(245,158,11,0.2); color: var(--orange); }
+.tag-api { background: rgba(168,85,247,0.2); color: var(--purple); }
+.tag-deploy { background: rgba(236,72,153,0.2); color: var(--pink); }
+.tag-ki { background: rgba(34,197,94,0.2); color: var(--green); }
+
+p { margin: 8px 0; font-size: 14px; }
+ul, ol { margin: 8px 0 8px 20px; font-size: 14px; }
+li { margin: 4px 0; }
+strong { color: var(--text); }
+.dim { color: var(--text-dim); }
+.section { scroll-margin-top: 24px; }
+
+/* SEARCH */
+.search-box {
+  position: sticky; top: 0; background: var(--bg2);
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+.search-box input {
+  width: 100%; padding: 8px 12px; background: var(--bg3);
+  border: 1px solid var(--border); border-radius: 6px;
+  color: var(--text); font-size: 13px; outline: none;
+}
+.search-box input:focus { border-color: var(--accent); }
+.search-box input::placeholder { color: var(--text-dim); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav { display: none; }
+  .main { margin-left: 0; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav-title">Tech-Wissen<br>Nachschlagewerk</div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Suchen..." oninput="filterNav(this.value)">
+  </div>
+
+  <div class="nav-section">Architektur</div>
+  <a href="#overview" class="nav-link">System-Uebersicht</a>
+  <a href="#dataflow" class="nav-link">Datenfluss Triple Alpha</a>
+  <a href="#server" class="nav-link">Server & Localhost</a>
+  <a href="#mastermaind" class="nav-link">mastermaind.ai</a>
+
+  <div class="nav-section">Grundlagen</div>
+  <a href="#python" class="nav-link">Python</a>
+  <a href="#sql" class="nav-link">SQL</a>
+  <a href="#api-rest" class="nav-link">API & REST</a>
+  <a href="#http" class="nav-link">HTTP & Status Codes</a>
+  <a href="#json-xml" class="nav-link">JSON vs XML</a>
+
+  <div class="nav-section">Infrastruktur</div>
+  <a href="#git" class="nav-link">Git</a>
+  <a href="#docker" class="nav-link">Docker</a>
+  <a href="#deployment" class="nav-link">Deployment</a>
+  <a href="#cloud-onprem" class="nav-link">Cloud vs On-Premises</a>
+
+  <div class="nav-section">Schnittstellen</div>
+  <a href="#schnittstellen" class="nav-link">Schnittstellen-Typen</a>
+  <a href="#cmis" class="nav-link">CMIS</a>
+  <a href="#cors" class="nav-link">CORS</a>
+
+  <div class="nav-section">Projekte</div>
+  <a href="#world-engine" class="nav-link">World Engine</a>
+
+  <div class="nav-section">KI-Konzepte</div>
+  <a href="#llm" class="nav-link">LLM</a>
+  <a href="#rag" class="nav-link">RAG</a>
+  <a href="#prompt-eng" class="nav-link">Prompt Engineering</a>
+  <a href="#agents" class="nav-link">Multi-Agent Systeme</a>
+  <a href="#local-llm" class="nav-link">Local LLM / Ollama / Qwen</a>
+  <a href="#rag-impl" class="nav-link">RAG Implementierung (numpy)</a>
+  <a href="#sql-qa" class="nav-link">SQL Q&A (sqlcoder)</a>
+
+  <div class="nav-section">Enterprise & Sicherheit</div>
+  <a href="#dsgvo" class="nav-link">DSGVO & On-Premises</a>
+  <a href="#error-handling" class="nav-link">Error Handling & Fallbacks</a>
+  <a href="#enterprise" class="nav-link">Enterprise Features</a>
+  <a href="#testing" class="nav-link">Testing & Validation</a>
+
+  <div class="nav-section">Behörden-Kontext</div>
+  <a href="#glossary" class="nav-link">Behörden-Glossar</a>
+
+  <div class="nav-section">Troubleshooting</div>
+  <a href="#troubleshooting" class="nav-link">Windows / PowerShell</a>
+  <a href="#python314" class="nav-link">Python 3.14 Kompatibilitaet</a>
+
+  <div class="nav-section">Interview</div>
+  <a href="#interview" class="nav-link">Interview-Antworten</a>
+  <a href="#begriffe" class="nav-link">Begriffe Quick-Check</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<h1>Tech-Wissen Nachschlagewerk</h1>
+<p class="subtitle">Interview-Vorbereitung &mdash; Aliaksandr Belafostau &mdash; Stand: Februar 2026</p>
+
+<!-- ============================================ -->
+<!-- SECTION: SYSTEM OVERVIEW -->
+<!-- ============================================ -->
+<section id="overview" class="section">
+<h2>System-Uebersicht: Alle Projekte</h2>
+
+<div class="arch-diagram">
+  <p style="text-align:center;color:var(--text-dim);font-size:12px;margin-bottom:16px;">Klicke auf ein Modul fuer Details</p>
+
+  <div class="arch-row">
+    <div class="arch-box server" onclick="toggleDetail('d-browser')">
+      <div class="label">Browser (User)</div>
+      <div class="sub">localhost:8001 / mastermaind.ai</div>
+    </div>
+  </div>
+  <div class="arch-arrow">&#9660; HTTP Request / Response &#9650;</div>
+  <div class="arch-row">
+    <div class="arch-box server" onclick="toggleDetail('d-fastapi')">
+      <div class="label">FastAPI + Uvicorn</div>
+      <div class="sub">Web-Server (Python)</div>
+    </div>
+  </div>
+  <div class="arch-arrow">&#9660; ruft auf &#9650;</div>
+  <div class="arch-row">
+    <div class="arch-box orchestrator" onclick="toggleDetail('d-orchestrator')">
+      <div class="label">Orchestrator</div>
+      <div class="sub">Koordiniert Agenten + shared_memory</div>
+    </div>
+  </div>
+  <div class="arch-arrow">&#9660; delegiert &#9650;</div>
+  <div class="arch-row">
+    <div class="arch-box agent-scout" onclick="toggleDetail('d-scout')">
+      <div class="label">Scout</div>
+      <div class="sub">Daten sammeln</div>
+    </div>
+    <div class="arch-box agent-analyst" onclick="toggleDetail('d-analyst')">
+      <div class="label">Analyst</div>
+      <div class="sub">Trends erkennen</div>
+    </div>
+    <div class="arch-box agent-planner" onclick="toggleDetail('d-planner')">
+      <div class="label">Planner</div>
+      <div class="sub">Ideen generieren</div>
+    </div>
+  </div>
+  <div class="arch-arrow">&#9660; nutzen &#9650;</div>
+  <div class="arch-row">
+    <div class="arch-box llm" onclick="toggleDetail('d-llm')">
+      <div class="label">Claude API (LLM)</div>
+      <div class="sub">core/llm.py &rarr; api.anthropic.com</div>
+    </div>
+  </div>
+  <div style="margin-top:16px"></div>
+  <div class="arch-row">
+    <div class="arch-box db" onclick="toggleDetail('d-sqlite')">
+      <div class="label">SQLite</div>
+      <div class="sub">aaa_agents.db</div>
+    </div>
+    <div class="arch-box db" onclick="toggleDetail('d-json')">
+      <div class="label">JSON-Dateien</div>
+      <div class="sub">data/reports/*.json</div>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Panels -->
+<div id="d-browser" class="detail-panel">
+  <h4>Browser <span class="badge badge-interview">Interview-relevant</span></h4>
+  <p>Der Browser (Chrome, Firefox, Edge) ist der <strong>Client</strong>. Er schickt HTTP-Anfragen an den Server und zeigt die Antworten an.</p>
+  <p>Wenn du <code>http://localhost:8001</code> eingibst, passiert:</p>
+  <ol>
+    <li>Browser schickt <code>GET /</code> an Port 8001 deines Rechners</li>
+    <li>Uvicorn empfaengt die Anfrage, FastAPI findet <code>@app.get("/")</code></li>
+    <li>FastAPI schickt <code>dashboard/index.html</code> zurueck</li>
+    <li>Browser zeigt die HTML-Seite an</li>
+    <li>JavaScript in der Seite schickt weitere Anfragen (<code>fetch("/api/...")</code>) um Daten zu laden</li>
+  </ol>
+</div>
+
+<div id="d-fastapi" class="detail-panel">
+  <h4>FastAPI + Uvicorn <span class="badge badge-file">api/main.py</span></h4>
+  <p><strong>Uvicorn</strong> = der Web-Server. Er lauscht auf einem Port und leitet Anfragen weiter.</p>
+  <p><strong>FastAPI</strong> = das Web-Framework. Es ordnet URLs den richtigen Python-Funktionen zu:</p>
+<pre>@app.get("/")                     # Browser ruft Startseite auf
+@app.get("/api/agents")            # Agenten-Status abfragen
+@app.post("/api/reports/generate") # Report-Generierung ausloesen
+@app.get("/api/ideas/saved")       # Gespeicherte Ideen abrufen</pre>
+  <p><code>@app.get</code> = Daten holen (lesen). <code>@app.post</code> = Aktion ausloesen (schreiben/starten).</p>
+  <p><strong>Startbefehl:</strong> <code>python -m uvicorn api.main:app --port 8001</code></p>
+  <div class="interview-box">
+    <p>"FastAPI ist ein Python Web-Framework das REST-Endpoints bereitstellt. Uvicorn ist der ASGI-Server der die Anfragen entgegennimmt. Zusammen bilden sie das Backend unserer Anwendung."</p>
+  </div>
+</div>
+
+<div id="d-orchestrator" class="detail-panel">
+  <h4>Orchestrator <span class="badge badge-file">core/orchestrator.py</span></h4>
+  <p>Der Orchestrator ist das <strong>Gehirn der Koordination</strong>. Er:</p>
+  <ul>
+    <li>Kennt alle Agenten (Scout, Analyst, Planner, Freelancer)</li>
+    <li>Fuehrt <strong>Workflows</strong> aus &mdash; vordefinierte Ablaeufe mit mehreren Schritten</li>
+    <li>Haelt den <strong>shared_memory</strong> &mdash; ein Python-Dictionary wo Zwischenergebnisse gespeichert werden</li>
+    <li>Uebergibt Ergebnisse von einem Agenten als Input an den naechsten</li>
+  </ul>
+  <p><strong>Wichtig:</strong> Agenten reden NICHT direkt miteinander. Der Orchestrator ist der Vermittler.</p>
+<pre>shared_memory = {
+    "all_news_items": [...],     # Scout schreibt rein
+    "latest_trends": [...],       # Analyst liest News, schreibt Trends
+    "ranked_ideas": [...]         # Planner liest Trends, schreibt Ideen
+}</pre>
+  <div class="interview-box">
+    <p>"Der Orchestrator koordiniert die Agenten ueber einen geteilten Speicher. Er kennt die Abhaengigkeiten zwischen den Schritten und stellt sicher, dass jeder Agent die Ergebnisse des vorherigen als Input bekommt."</p>
+  </div>
+</div>
+
+<div id="d-scout" class="detail-panel">
+  <h4>Scout Agent <span class="badge badge-file">agents/scout.py</span> <span style="color:var(--green)">&#9679;</span></h4>
+  <p><strong>Aufgabe:</strong> Daten aus dem Internet sammeln und klassifizieren.</p>
+  <table>
+    <tr><th>Quelle</th><th>Methode</th><th>Ergebnis</th></tr>
+    <tr><td>7 RSS-Feeds</td><td>HTTP GET &rarr; XML parsen</td><td>~70 Artikel</td></tr>
+    <tr><td>Hacker News</td><td>HN API (JSON)</td><td>~25 gefiltert</td></tr>
+    <tr><td>Reddit (6 Subs)</td><td>Reddit API (JSON)</td><td>~75 Posts</td></tr>
+    <tr><td>GitHub Trending</td><td>HTML parsen</td><td>~25 Repos</td></tr>
+    <tr><td>arXiv</td><td>arXiv API (XML)</td><td>~20 Papers</td></tr>
+  </table>
+  <p>Danach: <code>_batch_analyze_items()</code> &rarr; Je 5 Items an Claude schicken &rarr; Kategorie, Wichtigkeit (1-10), Tags, Zusammenfassung</p>
+</div>
+
+<div id="d-analyst" class="detail-panel">
+  <h4>Analyst Agent <span class="badge badge-file">agents/analyst.py</span> <span style="color:var(--blue)">&#9679;</span></h4>
+  <p><strong>Aufgabe:</strong> Aus den gesammelten Daten Trends und Chancen erkennen.</p>
+  <p><strong>3 Schritte:</strong></p>
+  <ol>
+    <li><strong>analyze_trends</strong> &mdash; Bekommt ~150 News, zaehlt Kategorien, schickt Kontext an Claude &rarr; 5-7 Trends mit Staerke, Richtung, Chancen</li>
+    <li><strong>market_overview</strong> &mdash; Executive-Zusammenfassung des Marktes</li>
+    <li><strong>opportunity_analysis</strong> &mdash; 4-6 konkrete Business-Chancen</li>
+  </ol>
+  <p><strong>Jeder Schritt:</strong> Baut einen Prompt &rarr; <code>llm.generate_structured()</code> &rarr; Claude antwortet mit JSON &rarr; Ergebnis in shared_memory</p>
+</div>
+
+<div id="d-planner" class="detail-panel">
+  <h4>Planner Agent <span class="badge badge-file">agents/planner.py</span> <span style="color:var(--cyan)">&#9679;</span></h4>
+  <p><strong>Aufgabe:</strong> Trends in Business-Ideen umwandeln, bewerten, Report erstellen.</p>
+  <ol>
+    <li><strong>generate_ideas</strong> &mdash; 5 Ideen aus Trends generieren (Name, Problem, Loesung, Revenue-Modell)</li>
+    <li><strong>rank_ideas</strong> &mdash; Bewertung auf 5 Dimensionen (Market Potential, Feasibility, Time to Revenue, Competition, Legal Risk) je 1-10</li>
+    <li><strong>daily_report</strong> &mdash; Executive Summary: Markt-Puls, Top-Chance, Trend-Watch, Risiko-Alerts</li>
+  </ol>
+</div>
+
+<div id="d-llm" class="detail-panel">
+  <h4>LLM (Claude API) <span class="badge badge-file">core/llm.py</span></h4>
+  <p><strong>LLM</strong> = Large Language Model. Ein KI-Modell das Text versteht und generiert.</p>
+  <p>Alle Agenten nutzen die gleiche Funktion:</p>
+<pre>result = llm.generate_structured(
+    prompt="Analysiere diese Trends...",
+    schema={"trends": [{"name": "str", ...}]},
+    system_prompt="Du bist ein Marktanalyst..."
+)
+# 1. Schickt HTTP POST an api.anthropic.com
+# 2. Claude denkt nach, antwortet mit Text
+# 3. parse_llm_json() bereinigt die Antwort
+# 4. Gibt Python-Dictionary zurueck</pre>
+  <p><strong>parse_llm_json()</strong> ist der robuste Parser: Entfernt Markdown-Codeblocks, erlaubt Steuerzeichen (<code>strict=False</code>), entfernt Trailing Commas.</p>
+</div>
+
+<div id="d-sqlite" class="detail-panel">
+  <h4>SQLite Datenbank <span class="badge badge-file">core/database.py</span></h4>
+  <p>SQLite = eine dateibasierte Datenbank. Kein Server noetig &mdash; die ganze DB ist EINE Datei: <code>aaa_agents.db</code></p>
+  <table>
+    <tr><th>Tabelle</th><th>Inhalt</th><th>Beispiel-Query</th></tr>
+    <tr><td>ideas</td><td>Business-Ideen mit Scores</td><td><code>SELECT * FROM ideas WHERE starred=1</code></td></tr>
+    <tr><td>trends</td><td>Erkannte Trends mit Staerke</td><td><code>SELECT * FROM trends ORDER BY strength DESC</code></td></tr>
+    <tr><td>reports_log</td><td>Wann welcher Report lief</td><td><code>SELECT * FROM reports_log LIMIT 10</code></td></tr>
+    <tr><td>learned_rules</td><td>Regeln die Agenten gelernt haben</td><td><code>SELECT * FROM learned_rules WHERE agent_type='scout'</code></td></tr>
+  </table>
+</div>
+
+<div id="d-json" class="detail-panel">
+  <h4>JSON-Report-Dateien <span class="badge badge-file">data/reports/</span></h4>
+  <p>Jeder Report wird als JSON-Datei gespeichert:</p>
+  <ul>
+    <li><code>daily_report_2026-02-21.json</code> &mdash; Report fuer ein bestimmtes Datum</li>
+    <li><code>latest_report.json</code> &mdash; Immer eine Kopie des neuesten Reports</li>
+  </ul>
+  <p>Megamind liest <code>latest_report.json</code> und zeigt die Daten im Dashboard an.</p>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: DATAFLOW -->
+<!-- ============================================ -->
+<section id="dataflow" class="section">
+<h2>Datenfluss: Daily Report Pipeline</h2>
+
+<p>Was passiert wenn der Scheduler um 08:00 den taeglichen Report ausloest:</p>
+
+<div class="flow-steps">
+  <div class="flow-step"><div class="flow-num system">0</div><div class="flow-text"><strong>Scheduler triggert</strong> &mdash; <code>scheduler.run_daily_report()</code> &rarr; <code>orchestrator.execute_workflow("daily_report")</code></div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-num scout">1</div><div class="flow-text"><strong>Scout: collect_news</strong> &mdash; Sammelt ~150 Items von RSS, Reddit, HN, GitHub, arXiv. Batch-Klassifizierung durch Claude. &rarr; <code>shared_memory["all_news_items"]</code></div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-num analyst">2</div><div class="flow-text"><strong>Analyst: analyze_trends</strong> &mdash; Zaehlt Kategorien, Claude identifiziert 5-7 Trends. &rarr; <code>shared_memory["latest_trends"]</code></div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-num analyst">3</div><div class="flow-text"><strong>Analyst: market_overview</strong> &mdash; Executive-Zusammenfassung. &rarr; <code>shared_memory["analyst_market_overview"]</code></div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-num analyst">4</div><div class="flow-text"><strong>Analyst: find_opportunities</strong> &mdash; 4-6 Business-Chancen. &rarr; <code>shared_memory["analyst_find_opportunities"]</code></div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-num planner">5</div><div class="flow-text"><strong>Planner: generate_ideas</strong> &mdash; 5 Ideen aus Trends + Chancen. &rarr; <code>shared_memory["planner_generate_ideas"]</code></div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-num planner">6</div><div class="flow-text"><strong>Planner: rank_ideas</strong> &mdash; Bewertung auf 5 Dimensionen. &rarr; <code>shared_memory["planner_rank_ideas"]</code></div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-num planner">7</div><div class="flow-text"><strong>Planner: daily_summary</strong> &mdash; Kompiliert Executive Report. &rarr; <code>shared_memory["planner_daily_report"]</code></div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-num system">8</div><div class="flow-text"><strong>Persistierung</strong> &mdash; JSON auf Festplatte + SQLite (ideas, trends, reports_log, learned_rules)</div></div>
+</div>
+
+<div class="interview-box">
+  <p>"Triple Alpha nutzt eine Pipeline-Architektur. Ein Scheduler triggert den Workflow. Der Scout sammelt Daten aus 5 Quellen, der Analyst identifiziert Trends und Chancen, der Planner generiert und bewertet Business-Ideen. Die Agenten kommunizieren ueber einen geteilten Speicher im Orchestrator. Am Ende wird alles als JSON-Datei und in SQLite persistiert."</p>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: SERVER -->
+<!-- ============================================ -->
+<section id="server" class="section">
+<h2>Server & Localhost</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist ein Server?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Ein Server ist ein <strong>Programm das laeuft und auf Anfragen wartet</strong>. Kein spezieller Computer &mdash; jeder Rechner kann ein Server sein.</p>
+    <p>Wenn du <code>start.bat</code> ausfuehrst, wird dein PC zum Server: Uvicorn "bindet" sich an Port 8001 und wartet auf HTTP-Anfragen.</p>
+    <p><strong>localhost</strong> = <code>127.0.0.1</code> = "ich selbst". Der Browser schickt die Anfrage an den eigenen Rechner.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist ein Port?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Dein Computer hat eine IP-Adresse, aber viele Programme laufen gleichzeitig. <strong>Ports</strong> sind Tuernummern:</p>
+    <table>
+      <tr><th>Adresse</th><th>Programm</th></tr>
+      <tr><td><code>localhost:8001</code></td><td>Triple Alpha</td></tr>
+      <tr><td><code>localhost:8080</code></td><td>Megamind</td></tr>
+      <tr><td><code>localhost:80</code></td><td>Standard HTTP</td></tr>
+      <tr><td><code>localhost:443</code></td><td>Standard HTTPS</td></tr>
+      <tr><td><code>localhost:5432</code></td><td>PostgreSQL (wenn installiert)</td></tr>
+    </table>
+    <p>Jeder Port kann nur von EINEM Programm belegt werden. Deswegen gibt es den Fehler "Port already in use" wenn du zwei Server auf dem gleichen Port startest.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was passiert beim Start? (start.bat)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>python -m uvicorn api.main:app --host 0.0.0.0 --port 8001
+
+python -m        = "Python, fuehre ein Modul aus"
+uvicorn           = Web-Server fuer Python (ASGI)
+api.main:app      = "Ordner api/, Datei main.py, Objekt app"
+--host 0.0.0.0    = Akzeptiere Anfragen von ueberall
+--port 8001       = Lausche auf Port 8001</pre>
+    <p><strong>Dann passiert in main.py lifespan():</strong></p>
+    <ol>
+      <li><code>init_db()</code> &mdash; SQLite-Tabellen erstellen (falls nicht vorhanden)</li>
+      <li><code>Orchestrator()</code> &mdash; API-Key laden, 4 Agenten erstellen, Regeln aus DB laden</li>
+      <li><code>DailyScheduler.start()</code> &mdash; Hintergrund-Task der auf 08:00 wartet</li>
+      <li>"Application startup complete" &mdash; Server ist bereit</li>
+    </ol>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: MASTERMAIND -->
+<!-- ============================================ -->
+<section id="mastermaind" class="section">
+<h2>mastermaind.ai Architektur</h2>
+
+<div class="arch-diagram">
+  <div class="arch-row">
+    <div class="arch-box server">
+      <div class="label">Browser</div>
+      <div class="sub">mastermaind.ai / localhost:8000</div>
+    </div>
+  </div>
+  <div class="arch-arrow">&#9660; HTTP &#9650;</div>
+  <div class="arch-row">
+    <div class="arch-box server">
+      <div class="label">FastAPI (main.py)</div>
+      <div class="sub">Seiten ausliefern + Prompt Optimizer</div>
+    </div>
+    <div class="arch-box orchestrator">
+      <div class="label">enterprise.py</div>
+      <div class="sub">5 KI-Module (RAG, SQL, Process, Orchestrator, Chat)</div>
+    </div>
+  </div>
+  <div class="arch-arrow">&#9660; &#9650;</div>
+  <div class="arch-row">
+    <div class="arch-box llm">
+      <div class="label">Claude API</div>
+      <div class="sub">Anthropic (Cloud)</div>
+    </div>
+    <div class="arch-box db">
+      <div class="label">Supabase</div>
+      <div class="sub">PostgreSQL (Cloud)</div>
+    </div>
+  </div>
+</div>
+
+<p><strong>Unterschied zu Triple Alpha:</strong> mastermaind.ai ist eine Demo-Plattform fuer Endnutzer (Sachbearbeiter). Triple Alpha ist ein internes Analyse-Tool. Beide nutzen FastAPI + Claude, aber fuer unterschiedliche Zwecke.</p>
+
+<p><strong>On-Premises Version wuerde so aussehen:</strong> Claude API &rarr; Llama/Ollama (lokal). Supabase &rarr; PostgreSQL (lokal). Render &rarr; Docker auf eigenem Server.</p>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: PYTHON -->
+<!-- ============================================ -->
+<section id="python" class="section">
+<h2>Python Grundlagen</h2>
+
+<p class="dim">Du kennst C# aus dem Studium &mdash; Python ist aehnlich, aber mit weniger Boilerplate-Code.</p>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Variablen & Datentypen</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre># Python                           # C# Aequivalent
+name = "Alex"                       # string name = "Alex";
+alter = 30                          # int alter = 30;
+aktiv = True                        # bool aktiv = true;
+score = 7.5                         # double score = 7.5;
+tags = ["python", "sql"]            # List&lt;string&gt; tags = new List...
+config = {"port": 8001, "debug": True}  # Dictionary&lt;string, object&gt;
+
+# Python braucht KEINE Typ-Deklaration
+# Der Typ wird automatisch erkannt (dynamische Typisierung)
+# C# = statisch typisiert (Typ MUSS angegeben werden)</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Funktionen</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre># Python
+def berechne_score(items, gewichtung=1.0):
+    """Berechnet den Durchschnittsscore."""  # Docstring = Dokumentation
+    if not items:
+        return 0
+    total = sum(item["score"] for item in items)
+    return (total / len(items)) * gewichtung
+
+# Aufruf:
+ergebnis = berechne_score(meine_items, gewichtung=1.5)
+
+# C# Aequivalent:
+# double BerechneScore(List&lt;Item&gt; items, double gewichtung = 1.0) {
+#     if (items.Count == 0) return 0;
+#     ...
+# }</pre>
+    <p><strong>Unterschied zu C#:</strong> Keine geschweiften Klammern <code>{ }</code>, stattdessen <strong>Einrueckung</strong> (Indentation). 4 Leerzeichen = ein Block.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Klassen (OOP)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre># Python
+class BaseAgent:                          # Basis-Klasse
+    def __init__(self, name, llm):        # Konstruktor (wie C# Constructor)
+        self.name = name                  # self = this in C#
+        self.llm = llm
+        self.learned_rules = []
+
+    async def execute(self, context):     # Abstrakte Methode
+        raise NotImplementedError
+
+class ScoutAgent(BaseAgent):              # Erbt von BaseAgent
+    def __init__(self, llm):
+        super().__init__("scout", llm)    # Basis-Konstruktor aufrufen
+        self.rss_feeds = [...]
+
+    async def execute(self, context):     # Eigene Implementierung
+        return await self._collect_all_sources()
+
+# C# Aequivalent:
+# class BaseAgent {
+#     public string Name { get; }
+#     public BaseAgent(string name, ILlm llm) { ... }
+#     public virtual async Task Execute(Context ctx) { ... }
+# }
+# class ScoutAgent : BaseAgent {
+#     public ScoutAgent(ILlm llm) : base("scout", llm) { ... }
+#     public override async Task Execute(Context ctx) { ... }
+# }</pre>
+    <p><strong>self</strong> = wie <code>this</code> in C#. Muss in Python aber explizit als erster Parameter angegeben werden.</p>
+    <p><strong>__init__</strong> = der Konstruktor. Wird aufgerufen wenn du <code>ScoutAgent(llm)</code> schreibst.</p>
+    <p><strong>Vererbung:</strong> <code>class Kind(Elternteil)</code> statt C# <code>class Kind : Elternteil</code></p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">async / await</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Problem:</strong> Wenn der Server auf eine Antwort von Claude wartet (2-3 Sekunden), soll er in der Zeit andere Anfragen bedienen koennen.</p>
+    <p><strong>Loesung:</strong> <code>async/await</code> &mdash; genau wie in C#.</p>
+<pre># Python
+async def generate_report():
+    news = await scout.collect_news()      # Warte, aber blockiere nicht
+    trends = await analyst.analyze(news)   # Waehrend hier gewartet wird,
+    ideas = await planner.generate(trends) # kann der Server andere Anfragen bearbeiten
+    return ideas
+
+# C# Aequivalent:
+# async Task&lt;Ideas&gt; GenerateReport() {
+#     var news = await scout.CollectNews();
+#     var trends = await analyst.Analyze(news);
+#     var ideas = await planner.Generate(trends);
+#     return ideas;
+# }</pre>
+    <p><strong>Ohne async:</strong> Server wartet 3 Sek auf Claude &rarr; alle anderen User warten auch.<br>
+    <strong>Mit async:</strong> Server wartet auf Claude, bedient gleichzeitig andere Anfragen.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">import & Packages</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre># Standard-Bibliothek (kommt mit Python)
+import json              # JSON lesen/schreiben
+import sqlite3           # SQLite Datenbank
+from pathlib import Path # Dateipfade
+from datetime import datetime
+
+# Externe Packages (installiert mit pip)
+from fastapi import FastAPI        # Web-Framework
+from pydantic import BaseModel     # Datenvalidierung
+import anthropic                   # Claude API
+
+# Eigene Module (unsere Dateien)
+from core.orchestrator import Orchestrator
+from core.database import init_db
+from config.settings import settings
+
+# Installation externer Packages:
+# pip install -r requirements.txt
+# (requirements.txt listet alle Abhaengigkeiten mit Versionen)</pre>
+    <p><strong>C# Aequivalent:</strong> <code>using System.Text.Json;</code> und NuGet Packages.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Pydantic (Datenvalidierung)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Pydantic definiert <strong>Datenmodelle</strong> &mdash; welche Felder ein Request haben MUSS und welchen Typ.</p>
+<pre>from pydantic import BaseModel
+
+class TaskRequest(BaseModel):
+    agent: str                          # Pflicht, muss Text sein
+    task_type: str                      # Pflicht, muss Text sein
+    input_data: dict[str, Any] = {}     # Optional, Standard = leeres Dict
+
+# Was passiert:
+# OK:    {"agent": "scout", "task_type": "collect_all"}
+# OK:    {"agent": "scout", "task_type": "collect_all", "input_data": {"limit": 5}}
+# FEHLER: {"agent": "scout"}  ← task_type fehlt → 422 Validation Error
+# FEHLER: {"agent": 123}      ← agent muss Text sein → 422</pre>
+    <p>FastAPI nutzt Pydantic automatisch: Wenn ein Request nicht zum Model passt, kommt sofort ein Fehler zurueck &mdash; ohne dass du selbst pruefen musst.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: SQL -->
+<!-- ============================================ -->
+<section id="sql" class="section">
+<h2>SQL</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">SELECT, WHERE, ORDER BY</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>-- Alle aktiven Ideas mit Score ueber 7, sortiert nach Score
+SELECT name, overall_score, description
+FROM ideas
+WHERE archived = 0 AND overall_score > 7
+ORDER BY overall_score DESC;
+
+-- SELECT = welche Spalten
+-- FROM   = aus welcher Tabelle
+-- WHERE  = Bedingung (Filter)
+-- ORDER BY = Sortierung (DESC = absteigend, ASC = aufsteigend)</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">JOIN (Tabellen verknuepfen)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>-- Beispiel: Leistungsberechtigte MIT ihren Massnahmen
+SELECT l.nachname, l.vorname, m.bezeichnung, m.status
+FROM leistungsberechtigte l
+INNER JOIN massnahmen m ON l.id = m.person_id
+WHERE l.sgb2_status = 'aktiv';
+
+-- INNER JOIN = Nur Zeilen die in BEIDEN Tabellen existieren
+-- LEFT JOIN  = Alle aus der linken Tabelle, auch ohne Match rechts
+-- ON         = Die Verknuepfungsbedingung (welche Spalten zusammengehoeren)</pre>
+    <p><strong>INNER JOIN:</strong> Person hat Massnahme? &rarr; Zeige beides. Keine Massnahme? &rarr; Nicht anzeigen.</p>
+    <p><strong>LEFT JOIN:</strong> Zeige ALLE Personen. Wenn Massnahme existiert &rarr; zeige sie mit. Wenn nicht &rarr; NULL.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">GROUP BY, COUNT, SUM</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>-- Wie viele Leistungsberechtigte pro Status?
+SELECT sgb2_status, COUNT(*) as anzahl
+FROM leistungsberechtigte
+GROUP BY sgb2_status;
+
+-- Ergebnis:
+-- aktiv     | 234
+-- beendet   | 89
+-- ruhend    | 12
+
+-- GROUP BY = Gruppiere Zeilen nach einem Wert
+-- COUNT(*) = Zaehle wie viele Zeilen pro Gruppe
+-- SUM()    = Summiere einen Wert pro Gruppe
+-- AVG()    = Durchschnitt pro Gruppe</pre>
+  </div>
+</div>
+
+<div class="interview-box">
+  <p>"SQL nutze ich in meinen Projekten an zwei Stellen: Erstens im NL-to-SQL Modul von mastermaind.ai, wo natuerliche Sprache in SQL-Queries uebersetzt wird. Zweitens in Triple Alpha, wo Ideas, Trends und Report-Logs in einer SQLite-Datenbank persistiert werden. Ich kenne SELECT mit JOINs, GROUP BY und Aggregatfunktionen."</p>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: API & REST -->
+<!-- ============================================ -->
+<section id="api-rest" class="section">
+<h2>API & REST</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist eine API?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>API = Application Programming Interface</strong> (Anwendungs-Programmier-Schnittstelle)</p>
+    <p>Eine API ist eine <strong>definierte Schnittstelle</strong> ueber die zwei Programme miteinander kommunizieren. Regeln: Welche Anfragen akzeptiert werden, in welchem Format, und was zurueckkommt.</p>
+    <p><strong>Beispiele fuer APIs:</strong></p>
+    <ul>
+      <li><code>api.anthropic.com</code> &mdash; Claude API (wir schicken Prompts, bekommen Antworten)</li>
+      <li><code>localhost:8001/api/reports/generate</code> &mdash; unsere eigene API (Report generieren)</li>
+      <li><code>news.ycombinator.com/api</code> &mdash; Hacker News API (Scout holt News)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist REST?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>REST = Representational State Transfer</strong> &mdash; ein Architekturstil fuer APIs.</p>
+    <p>REST-Regeln:</p>
+    <ul>
+      <li>Jede Ressource hat eine <strong>URL</strong> (z.B. <code>/api/ideas</code>)</li>
+      <li><strong>HTTP-Methoden</strong> bestimmen die Aktion (GET=lesen, POST=erstellen, etc.)</li>
+      <li>Daten werden als <strong>JSON</strong> uebertragen</li>
+      <li>Jede Anfrage ist <strong>unabhaengig</strong> (Server merkt sich nichts zwischen Anfragen)</li>
+    </ul>
+    <table>
+      <tr><th>HTTP-Methode</th><th>Bedeutung</th><th>Beispiel</th></tr>
+      <tr><td><strong>GET</strong></td><td>Daten abrufen (lesen)</td><td><code>GET /api/ideas</code> &rarr; Liste aller Ideen</td></tr>
+      <tr><td><strong>POST</strong></td><td>Daten senden / Aktion ausloesen</td><td><code>POST /api/reports/generate</code> &rarr; Report starten</td></tr>
+      <tr><td><strong>PUT</strong></td><td>Daten aktualisieren (komplett)</td><td><code>PUT /api/ideas/5</code> &rarr; Idee 5 ueberschreiben</td></tr>
+      <tr><td><strong>DELETE</strong></td><td>Daten loeschen</td><td><code>DELETE /api/ideas/5</code> &rarr; Idee 5 loeschen</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Endpoint = URL + Methode + Funktion</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre># In FastAPI:
+@app.get("/api/ideas/saved")        # Endpoint: GET /api/ideas/saved
+async def get_saved_ideas():        # Diese Funktion wird ausgefuehrt
+    ideas = get_all_ideas()         # Daten aus DB holen
+    return {"ideas": ideas}         # JSON zurueckgeben
+
+# Das bedeutet:
+# Wenn jemand GET http://localhost:8001/api/ideas/saved aufruft
+# → FastAPI fuehrt get_saved_ideas() aus
+# → Gibt JSON zurueck: {"ideas": [...]}</pre>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: HTTP -->
+<!-- ============================================ -->
+<section id="http" class="section">
+<h2>HTTP & Status Codes</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist HTTP?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>HTTP = HyperText Transfer Protocol</strong> &mdash; das Protokoll wie Browser und Server kommunizieren.</p>
+    <p><strong>HTTPS</strong> = HTTP + Verschluesselung (SSL/TLS). Daten werden verschluesselt uebertragen. Das Schloss-Symbol im Browser.</p>
+    <p>Jede HTTP-Anfrage besteht aus:</p>
+<pre>Anfrage (Request):
+  Methode: GET
+  URL: /api/ideas/saved
+  Headers: Content-Type: application/json
+  Body: (bei GET leer, bei POST die Daten)
+
+Antwort (Response):
+  Status Code: 200 OK
+  Headers: Content-Type: application/json
+  Body: {"ideas": [...], "total": 5}</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Status Codes (die wichtigsten)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <table>
+      <tr><th>Code</th><th>Name</th><th>Bedeutung</th></tr>
+      <tr><td style="color:var(--green)"><strong>200</strong></td><td>OK</td><td>Alles gut, hier sind die Daten</td></tr>
+      <tr><td style="color:var(--green)"><strong>201</strong></td><td>Created</td><td>Erfolgreich erstellt (nach POST)</td></tr>
+      <tr><td style="color:var(--orange)"><strong>400</strong></td><td>Bad Request</td><td>Deine Anfrage ist fehlerhaft</td></tr>
+      <tr><td style="color:var(--orange)"><strong>401</strong></td><td>Unauthorized</td><td>Nicht eingeloggt / kein API-Key</td></tr>
+      <tr><td style="color:var(--orange)"><strong>403</strong></td><td>Forbidden</td><td>Eingeloggt, aber keine Berechtigung</td></tr>
+      <tr><td style="color:var(--orange)"><strong>404</strong></td><td>Not Found</td><td>URL existiert nicht</td></tr>
+      <tr><td style="color:var(--orange)"><strong>422</strong></td><td>Validation Error</td><td>Daten passen nicht zum Schema (Pydantic)</td></tr>
+      <tr><td style="color:var(--orange)"><strong>429</strong></td><td>Too Many Requests</td><td>Rate Limit erreicht</td></tr>
+      <tr><td style="color:var(--red)"><strong>500</strong></td><td>Internal Server Error</td><td>Server-Fehler (Bug im Code)</td></tr>
+      <tr><td style="color:var(--red)"><strong>503</strong></td><td>Service Unavailable</td><td>Server laeuft aber kann nicht antworten</td></tr>
+    </table>
+    <p><strong>Merkregel:</strong> 2xx = Erfolg. 4xx = Client-Fehler (dein Problem). 5xx = Server-Fehler (mein Problem).</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: JSON vs XML -->
+<!-- ============================================ -->
+<section id="json-xml" class="section">
+<h2>JSON vs XML</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">JSON (JavaScript Object Notation)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Ein <strong>Datenformat</strong> (KEIN Code!). Wird benutzt um strukturierte Daten zwischen Programmen auszutauschen.</p>
+<pre>{
+  "name": "Triple Alpha Report",
+  "date": "2026-02-21",
+  "trends": [
+    {"name": "Agentic AI", "strength": 9},
+    {"name": "Multimodal", "strength": 7}
+  ],
+  "success": true,
+  "error": null
+}</pre>
+    <p>Datentypen in JSON: <code>String</code> ("text"), <code>Number</code> (42, 3.14), <code>Boolean</code> (true/false), <code>Array</code> ([...]), <code>Object</code> ({...}), <code>null</code></p>
+    <p><strong>Wo wir JSON nutzen:</strong> API-Antworten, Report-Dateien, Claude-Kommunikation, Konfiguration</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">XML (eXtensible Markup Language)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Aelteres Datenformat mit <strong>Tags</strong> (wie HTML). Wird bei Behoerden und aelteren Systemen haeufig eingesetzt.</p>
+<pre>&lt;report&gt;
+  &lt;name&gt;Triple Alpha Report&lt;/name&gt;
+  &lt;date&gt;2026-02-21&lt;/date&gt;
+  &lt;trends&gt;
+    &lt;trend strength="9"&gt;Agentic AI&lt;/trend&gt;
+    &lt;trend strength="7"&gt;Multimodal&lt;/trend&gt;
+  &lt;/trends&gt;
+&lt;/report&gt;</pre>
+    <table>
+      <tr><th></th><th>JSON</th><th>XML</th></tr>
+      <tr><td>Lesbarkeit</td><td>Kompakt, leicht lesbar</td><td>Mehr Text, mehr Tags</td></tr>
+      <tr><td>Verbreitung</td><td>Modern, Web-Standard</td><td>Aelter, Behoerden, SOAP-APIs</td></tr>
+      <tr><td>Parsing</td><td><code>json.loads()</code></td><td>XML-Parser noetig</td></tr>
+      <tr><td>Schema</td><td>JSON Schema (optional)</td><td>XSD (XML Schema Definition)</td></tr>
+      <tr><td>Bei Pro Arbeit</td><td>Interne APIs</td><td>CMIS-Schnittstellen, Fachverfahren</td></tr>
+    </table>
+    <p><strong>Stellenausschreibung sagt:</strong> "XML Schnittstellen" &mdash; die Fachverfahren bei Pro Arbeit tauschen Daten im XML-Format aus.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: GIT -->
+<!-- ============================================ -->
+<section id="git" class="section">
+<h2>Git (Versionskontrolle)</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Grundkonzept</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Git speichert die <strong>komplette Geschichte</strong> deines Codes. Jede Aenderung wird als Snapshot festgehalten.</p>
+    <table>
+      <tr><th>Befehl</th><th>Was passiert</th></tr>
+      <tr><td><code>git clone URL</code></td><td>Repository (Projekt) vom Server herunterladen — lokale Kopie erstellen</td></tr>
+      <tr><td><code>git status</code></td><td>Zeige was sich geaendert hat (welche Dateien bearbeitet/neu/geloescht)</td></tr>
+      <tr><td><code>git add datei.py</code></td><td>Datei fuer den naechsten Commit vormerken ("staging")</td></tr>
+      <tr><td><code>git commit -m "..."</code></td><td>Snapshot erstellen mit Beschreibung. Dieser Zustand ist jetzt gespeichert.</td></tr>
+      <tr><td><code>git push</code></td><td>Lokale Commits zum Server (GitLab/GitHub) hochladen</td></tr>
+      <tr><td><code>git pull</code></td><td>Neue Commits vom Server herunterladen und lokal einbauen</td></tr>
+      <tr><td><code>git branch feature-x</code></td><td>Neuen Zweig erstellen (parallele Version des Codes)</td></tr>
+      <tr><td><code>git merge feature-x</code></td><td>Zweig zurueck in den Hauptstrang einbauen</td></tr>
+      <tr><td><code>git log</code></td><td>Liste aller Commits (wer, wann, was)</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Workflow: Code aendern und deployen</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>1. Code aendern         (Datei bearbeiten)
+2. git add main.py      (Aenderung vormerken)
+3. git commit -m "Bug fix in JSON parser"  (Snapshot speichern)
+4. git push             (Zum Server hochladen)
+   → Bei mastermaind.ai: Render erkennt den Push
+   → Render baut die App neu und deployed automatisch
+   → mastermaind.ai zeigt jetzt die neue Version</pre>
+    <p>Das ist <strong>Continuous Deployment</strong>: Code aendern &rarr; pushen &rarr; automatisch live.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: DOCKER -->
+<!-- ============================================ -->
+<section id="docker" class="section">
+<h2>Docker</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist Docker?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Docker ist eine <strong>Isolierungsschicht</strong>. Es verpackt eine Anwendung + alle Abhaengigkeiten in einen <strong>Container</strong>.</p>
+    <table>
+      <tr><th>Begriff</th><th>Bedeutung</th></tr>
+      <tr><td><strong>Image</strong></td><td>Die "Bauanleitung" — eine Vorlage mit OS + Python + Bibliotheken + Code. Wie eine ISO-Datei.</td></tr>
+      <tr><td><strong>Container</strong></td><td>Eine laufende Instanz eines Images. Wie ein Prozess der in seiner eigenen Umgebung lebt.</td></tr>
+      <tr><td><strong>Dockerfile</strong></td><td>Die Textdatei die beschreibt WIE das Image gebaut wird.</td></tr>
+      <tr><td><strong>docker-compose</strong></td><td>Tool um MEHRERE Container gleichzeitig zu starten (App + Datenbank + KI-Modell).</td></tr>
+      <tr><td><strong>Volume</strong></td><td>Persistenter Speicher. Daten die auch nach Container-Neustart erhalten bleiben.</td></tr>
+    </table>
+    <p><strong>Unterschied zu einer VM:</strong></p>
+    <ul>
+      <li><strong>VM:</strong> Simuliert einen ganzen Computer mit eigenem Betriebssystem. Schwer (GB gross), langsam zu starten.</li>
+      <li><strong>Container:</strong> Teilt sich das OS mit dem Host. Leicht (MB gross), startet in Sekunden.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Dockerfile Beispiel (unser Projekt)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>FROM python:3.12-slim          # Basis: Python 3.12 (schlanke Linux-Version)
+WORKDIR /app                   # Arbeitsverzeichnis im Container
+COPY requirements.txt .        # Abhaengigkeiten-Liste reinkopieren
+RUN pip install -r requirements.txt  # Alle Bibliotheken installieren
+COPY . .                       # Gesamten Code reinkopieren
+EXPOSE 8001                    # Port 8001 freigeben
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8001"]</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">docker-compose (Pro Arbeit Szenario)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre># docker-compose.yml — 3 Container auf EINEM Server
+services:
+  app:                          # Container 1: Unsere Web-App
+    build: .
+    ports: ["8080:8080"]
+    depends_on: [db, ollama]
+
+  db:                           # Container 2: PostgreSQL
+    image: postgres:16
+    volumes: [db_data:/var/lib/postgresql/data]
+
+  ollama:                       # Container 3: Lokale KI
+    image: ollama/ollama
+    ports: ["11434:11434"]
+
+# Ein Befehl startet ALLES:
+# docker-compose up</pre>
+    <p><strong>Fuer Pro Arbeit:</strong> Ein <code>docker-compose up</code> und die gesamte Plattform laeuft — App + Datenbank + lokales KI-Modell. Keine manuelle Installation noetig.</p>
+  </div>
+</div>
+
+<div class="interview-box">
+  <p>"Die Deployment-Strategie ist Docker-basiert. Ein docker-compose up startet die komplette Plattform — Web-App, Datenbank und lokales KI-Modell. Die IT-Abteilung braucht nur Docker auf dem Server installiert zu haben, alles andere ist im Container enthalten. Das vereinfacht auch Updates: Neues Image bauen, Container neu starten, fertig."</p>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: DEPLOYMENT -->
+<!-- ============================================ -->
+<section id="deployment" class="section">
+<h2>Deployment (Von Code zu laufender App)</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">mastermaind.ai: Cloud Deployment (Render)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>Du schreibst Code lokal
+    ↓
+git push (Code zu GitLab hochladen)
+    ↓
+Render erkennt den Push automatisch (Webhook)
+    ↓
+Render installiert Python + alle Bibliotheken (pip install)
+    ↓
+Render startet: uvicorn app.main:app --port 8000
+    ↓
+mastermaind.ai ist live (HTTPS, oeffentlich erreichbar)</pre>
+    <p>Das ist <strong>Continuous Deployment (CD)</strong>: Jeder Push wird automatisch deployed.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Triple Alpha / Megamind: Lokal</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>Du fuehrst start.bat aus
+    ↓
+Python + Uvicorn starten (bereits lokal installiert)
+    ↓
+Server laeuft auf localhost:8001 (nur dein Rechner)
+    ↓
+Nur DU kannst darauf zugreifen (nicht das Internet)</pre>
+    <p>Kein Deployment im klassischen Sinne — die App laeuft direkt auf deinem Rechner.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Pro Arbeit Szenario: On-Premises Docker</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>Docker Image bauen (einmalig)
+    ↓
+Image auf Pro Arbeit Server kopieren
+    ↓
+docker-compose up (App + DB + Ollama starten)
+    ↓
+Laeuft im internen Netzwerk (z.B. http://ki.proarbeit.local:8080)
+    ↓
+Nur Mitarbeiter im Netzwerk koennen zugreifen
+    ↓
+Keine Daten verlassen das Gebaeuede = DSGVO-konform</pre>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: CLOUD VS ON-PREM -->
+<!-- ============================================ -->
+<section id="cloud-onprem" class="section">
+<h2>Cloud vs On-Premises</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Vergleich</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <table>
+      <tr><th></th><th>Cloud</th><th>On-Premises</th></tr>
+      <tr><td><strong>Server-Standort</strong></td><td>Bei einem Anbieter (AWS, Azure, Google, Render)</td><td>Im eigenen Gebaeude/Rechenzentrum</td></tr>
+      <tr><td><strong>Zugriff</strong></td><td>Uebers Internet (ueberall)</td><td>Nur im internen Netzwerk</td></tr>
+      <tr><td><strong>Kosten</strong></td><td>Monatliche Gebuehr</td><td>Einmalig Hardware + Strom/Wartung</td></tr>
+      <tr><td><strong>Skalierung</strong></td><td>Einfach (mehr Server dazubuchen)</td><td>Hardware kaufen und installieren</td></tr>
+      <tr><td><strong>Datenschutz</strong></td><td>Daten beim Anbieter (DSGVO-kritisch!)</td><td>Daten bleiben intern (DSGVO-konform)</td></tr>
+      <tr><td><strong>Wartung</strong></td><td>Anbieter kuemmert sich</td><td>Eigene IT muss warten</td></tr>
+      <tr><td><strong>Dein DHL-Beispiel</strong></td><td>—</td><td>Citrix-Server in Europa, Zugriff ueber Citrix-Client</td></tr>
+    </table>
+    <p><strong>mastermaind.ai heute:</strong> Cloud (Render + Claude API + Supabase)</p>
+    <p><strong>Pro Arbeit Ziel:</strong> On-Premises (Docker + Llama/Ollama + lokale PostgreSQL)</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: SCHNITTSTELLEN -->
+<!-- ============================================ -->
+<section id="schnittstellen" class="section">
+<h2>Schnittstellen-Typen</h2>
+
+<p class="dim">Die Stellenausschreibung nennt explizit: "CMIS-Schnittstellen, Schnittstellen auf SQL Basis, XML Schnittstellen"</p>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist eine Schnittstelle?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Eine Schnittstelle (Interface) ist die <strong>Verbindungsstelle</strong> zwischen zwei Systemen. Sie definiert: Welche Daten werden ausgetauscht? In welchem Format? Ueber welches Protokoll?</p>
+    <table>
+      <tr><th>Schnittstellen-Typ</th><th>Format</th><th>Beispiel bei Pro Arbeit</th></tr>
+      <tr><td><strong>REST API</strong></td><td>JSON ueber HTTP</td><td>Interne Web-Apps, moderne Systeme</td></tr>
+      <tr><td><strong>SQL-Schnittstelle</strong></td><td>SQL-Queries direkt an DB</td><td>Reporting, Datenauswertung aus comp.ASS</td></tr>
+      <tr><td><strong>XML-Schnittstelle</strong></td><td>XML ueber HTTP/SOAP</td><td>Fachverfahren, BA-Systeme, E-Akte</td></tr>
+      <tr><td><strong>CMIS</strong></td><td>XML/JSON ueber HTTP</td><td>Dokumentenmanagement (civento E-Akte)</td></tr>
+      <tr><td><strong>Datei-Schnittstelle</strong></td><td>CSV/Excel-Export</td><td>Exporte aus BA-Systemen (ALLEGRO, STEP)</td></tr>
+    </table>
+  </div>
+</div>
+
+<section id="cmis" class="section">
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">CMIS (Content Management Interoperability Services)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>CMIS</strong> = ein Standard damit verschiedene Dokumentenmanagement-Systeme (DMS) miteinander reden koennen.</p>
+    <p><strong>Wozu:</strong> Pro Arbeit nutzt die civento E-Akte (von ekom21). CMIS erlaubt es, Dokumente aus der E-Akte programmatisch abzurufen, zu suchen und zu verwalten — ohne direkt in der E-Akte-Oberflaeche zu arbeiten.</p>
+    <p><strong>Technisch:</strong></p>
+    <ul>
+      <li>CMIS definiert Operationen: Dokument suchen, lesen, erstellen, Metadaten abfragen</li>
+      <li>Zwei Bindungen: <strong>AtomPub</strong> (XML-basiert) und <strong>Browser Binding</strong> (JSON-basiert)</li>
+      <li>Funktioniert ueber HTTP (REST-aehnlich)</li>
+    </ul>
+    <div class="interview-box">
+      <p>"CMIS ist ein Standard fuer die Interoperabilitaet von Dokumentenmanagement-Systemen. Er definiert eine einheitliche Schnittstelle um Dokumente zu suchen, lesen und verwalten — unabhaengig vom konkreten DMS-Produkt. Bei Pro Arbeit wuerde das die Anbindung an die civento E-Akte betreffen."</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="cors" class="section">
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">CORS (Cross-Origin Resource Sharing)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Problem:</strong> Ein Browser erlaubt standardmaessig NICHT, dass eine Webseite auf <code>domain-a.com</code> Daten von <code>domain-b.com</code> abruft. Das ist eine <strong>Sicherheitsregel</strong>.</p>
+    <p><strong>CORS</strong> = Der Server sagt dem Browser: "Es ist okay, diese Domain darf meine Daten abrufen."</p>
+<pre># In unserer FastAPI App:
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://mastermaind.ai"],  # NUR diese Domain darf anfragen
+    allow_methods=["*"],                        # Alle HTTP-Methoden erlaubt
+)</pre>
+    <p><strong>Warum das existiert:</strong> Ohne CORS koennte jede beliebige Webseite im Hintergrund deine Bank-API aufrufen, wenn du eingeloggt bist.</p>
+  </div>
+</div>
+</section>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: KI KONZEPTE -->
+<!-- ============================================ -->
+<section id="llm" class="section">
+<h2>LLM (Large Language Model)</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist ein LLM?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Ein LLM ist ein KI-Modell das auf riesigen Textmengen trainiert wurde. Es kann Text <strong>verstehen</strong> und <strong>generieren</strong>.</p>
+    <p><strong>Wichtig:</strong> Ein LLM "weiss" nichts. Es berechnet <strong>statistische Wahrscheinlichkeiten</strong> — welches Wort kommt als naechstes am wahrscheinlichsten?</p>
+    <table>
+      <tr><th>Modell</th><th>Anbieter</th><th>Cloud/Lokal</th><th>Wir nutzen es fuer</th></tr>
+      <tr><td>Claude (Haiku/Sonnet/Opus)</td><td>Anthropic</td><td>Cloud (API)</td><td>mastermaind.ai, Triple Alpha</td></tr>
+      <tr><td>Llama 3</td><td>Meta (Open Source)</td><td>Lokal moeglich</td><td>On-Premises Prototyp</td></tr>
+      <tr><td>Qwen3</td><td>Alibaba (Open Source)</td><td>Lokal moeglich</td><td>Bestes Deutsch bei 14B</td></tr>
+      <tr><td>Mistral</td><td>Mistral AI (EU/Paris)</td><td>Lokal moeglich</td><td>DSGVO-Vorteil (EU-Firma)</td></tr>
+      <tr><td>SQLCoder</td><td>Defog (Open Source)</td><td>Lokal moeglich</td><td>Spezialisiert auf SQL-Generierung</td></tr>
+    </table>
+  </div>
+</div>
+</section>
+
+<section id="rag" class="section">
+<h2>RAG (Retrieval-Augmented Generation)</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Wie funktioniert RAG?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Problem:</strong> Ein LLM kennt nur sein Trainingswissen. Es kennt NICHT deine internen Dokumente.</p>
+    <p><strong>Loesung:</strong> Das relevante Dokument wird VOR der Frage in den Prompt eingefuegt. Das LLM antwortet dann NUR basierend auf dem Dokument.</p>
+<pre>OHNE RAG:
+User: "Was sagt §21 SGB II?"
+LLM: Antwortet aus Trainingswissen (evtl. veraltet oder falsch)
+
+MIT RAG:
+System: "Hier ist der Gesetzestext: [§21 SGB II volltext...]
+         Beantworte die Frage NUR basierend auf diesem Text.
+         Zitiere die Quelle."
+User: "Was sagt §21 SGB II ueber Mehrbedarf?"
+LLM: Antwortet exakt aus dem Text mit Quellenangabe ✓</pre>
+    <p><strong>Fortgeschritten (mit Vektordatenbank):</strong></p>
+<pre>1. Dokumente in kleine Abschnitte (Chunks) teilen
+2. Jeden Chunk als Vektor speichern (Embedding)
+3. Bei Frage: Semantisch aehnliche Chunks finden
+4. Nur die relevanten Chunks in den Prompt geben
+5. LLM antwortet auf Basis der gefundenen Chunks</pre>
+    <div class="interview-box">
+      <p>"RAG steht fuer Retrieval-Augmented Generation. Statt das LLM aus seinem Trainingswissen antworten zu lassen, fuegen wir das relevante Dokument direkt in den Kontext ein. So bekommt man zuverlaessige, quellenbasierte Antworten. Fuer Pro Arbeit heisst das: Sachbearbeiter koennen SGB-II Richtlinien per natuerlicher Sprache durchsuchen und bekommen Antworten mit Paragraphen-Referenz."</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="prompt-eng" class="section">
+<h2>Prompt Engineering</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist Prompt Engineering?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Die Kunst, <strong>praezise Anweisungen</strong> fuer ein LLM zu formulieren. Kleine Aenderungen im Prompt koennen grosse Unterschiede im Ergebnis machen.</p>
+    <p><strong>System Prompt</strong> = Versteckte Anweisung die VOR der User-Frage kommt. Definiert die Rolle und Regeln.</p>
+<pre># Beispiel aus Triple Alpha (Analyst Agent):
+system_prompt = """
+Du bist ein erfahrener Marktanalyst fuer KI-Technologien.
+Analysiere die folgenden News-Items und identifiziere 5-7 Trends.
+Fuer jeden Trend gib an:
+- Name, Beschreibung, Kategorie
+- Staerke (1-10), Richtung (growing/stable/declining)
+- Chancen und Risiken
+Antworte NUR als valides JSON.
+"""</pre>
+    <p><strong>Techniken:</strong></p>
+    <ul>
+      <li><strong>Rollen-Zuweisung:</strong> "Du bist ein SQL-Experte..." (fokussiert die Antwort)</li>
+      <li><strong>Schema-Injection:</strong> DB-Schema in den Prompt geben (fuer NL→SQL)</li>
+      <li><strong>Few-Shot:</strong> Beispiele mitgeben ("Frage: X → SQL: Y")</li>
+      <li><strong>Output-Format:</strong> "Antworte als JSON mit diesen Feldern: ..."</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<section id="agents" class="section">
+<h2>Multi-Agent Systeme</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was sind KI-Agenten?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Ein <strong>Agent</strong> = ein LLM mit einer <strong>definierten Rolle</strong>, <strong>eigenen Tools</strong> und der Faehigkeit <strong>autonom zu handeln</strong>.</p>
+    <p>Unterschied zum einfachen Chat:</p>
+    <table>
+      <tr><th>Einfacher Chat</th><th>Agent</th></tr>
+      <tr><td>Du stellst Frage → Antwort</td><td>Du gibst ein Ziel → Agent plant und fuehrt Schritte aus</td></tr>
+      <tr><td>Ein Schritt</td><td>Mehrere Schritte autonom</td></tr>
+      <tr><td>Kein Zugriff auf Daten</td><td>Kann APIs aufrufen, Daten sammeln, Dateien lesen</td></tr>
+    </table>
+    <p><strong>Multi-Agent</strong> = Mehrere spezialisierte Agenten arbeiten zusammen:</p>
+    <ul>
+      <li><strong>Orchestrator</strong> koordiniert</li>
+      <li>Jeder Agent hat seine <strong>Spezialisierung</strong> (Scout = sammeln, Analyst = analysieren, Planner = planen)</li>
+      <li>Ergebnisse fliessen ueber <strong>shared_memory</strong> von Agent zu Agent</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: LOCAL LLM / OLLAMA / QWEN -->
+<!-- ============================================ -->
+<section id="local-llm" class="section">
+<h2>Local LLM / Ollama / Qwen — On-Premise AI</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist Ollama?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Ollama</strong> = ein Tool das LLMs lokal auf deinem Computer laufen laesst — ohne Cloud, ohne API-Kosten, ohne Datenschutz-Probleme.</p>
+    <p>Vergleich:</p>
+    <table>
+      <tr><th>Cloud LLM (Anthropic/OpenAI)</th><th>Local LLM (Ollama)</th></tr>
+      <tr><td>Daten gehen an externe Server</td><td>Alles bleibt auf deinem Laptop</td></tr>
+      <tr><td>Kosten pro Token/API-Call</td><td>Kostenlos nach Installation</td></tr>
+      <tr><td>Schnell, grosse Modelle</td><td>Abhaengig von deiner GPU/CPU</td></tr>
+      <tr><td>Internet benoetigt</td><td>Funktioniert offline</td></tr>
+      <tr><td>claude-3, gpt-4</td><td>qwen3, llama, mistral</td></tr>
+    </table>
+    <p><strong>Installation:</strong> <code>ollama pull qwen3:14b</code> — laed das Modell herunter (einmalig)</p>
+    <p><strong>Starten:</strong> <code>ollama run qwen3:14b</code> — startet interaktiven Chat im Terminal</p>
+    <p><strong>API:</strong> Ollama stellt automatisch eine lokale REST API bereit auf <code>http://localhost:11434</code></p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist Qwen? (Alibaba)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Qwen</strong> (ausgesprochen "Kwen") = Open-Source LLM-Familie von <strong>Alibaba Cloud</strong>.</p>
+    <p>Installiert auf Alexs Laptop: <strong>qwen3:14b</strong> — 14 Milliarden Parameter, 9.3 GB</p>
+    <table>
+      <tr><th>Begriff</th><th>Bedeutung</th></tr>
+      <tr><td>14b</td><td>14 Billion (Milliarden) Parameter — Modellgroesse</td></tr>
+      <tr><td>Parameter</td><td>Die "Gewichte" des neuronalen Netzes — je mehr, desto klever (und schwerer)</td></tr>
+      <tr><td>9.3 GB</td><td>Speicherbedarf auf der Festplatte (quantisiert/komprimiert)</td></tr>
+      <tr><td>Quantisierung</td><td>Modell wird komprimiert (z.B. von 32-bit auf 4-bit) um Speicher zu sparen, kleine Qualitaetseinbussen</td></tr>
+    </table>
+    <p>Weitere Modelle auf dem Laptop:</p>
+    <ul>
+      <li><strong>sqlcoder:7b</strong> — spezialisiert auf SQL-Abfragen generieren</li>
+      <li><strong>nomic-embed-text</strong> — fuer Embeddings (RAG / Vektorsuche)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Wichtige Begriffe — On-Premise AI</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <table>
+      <tr><th>Begriff</th><th>Erklaerung</th></tr>
+      <tr><td><strong>On-Premise</strong></td><td>Software laeuft auf eigener Hardware (Laptop/Server), nicht in der Cloud</td></tr>
+      <tr><td><strong>Inference</strong></td><td>Das "Denken" des Modells — wenn du eine Frage stellst und es antwortet</td></tr>
+      <tr><td><strong>Context Window</strong></td><td>Wie viel Text das Modell auf einmal "sehen" kann (z.B. 128k Tokens = ~100 Seiten)</td></tr>
+      <tr><td><strong>Token</strong></td><td>Wortteile die das Modell verarbeitet (~0.75 Woerter pro Token im Schnitt)</td></tr>
+      <tr><td><strong>GGUF</strong></td><td>Dateiformat fuer lokale LLMs (wie Ollama sie speichert)</td></tr>
+      <tr><td><strong>GPU Offload</strong></td><td>Teile des Modells werden auf die Grafikkarte ausgelagert fuer schnellere Inference</td></tr>
+      <tr><td><strong>Tokens/sec</strong></td><td>Geschwindigkeit des Modells — wie viele Tokens pro Sekunde es generiert</td></tr>
+      <tr><td><strong>Modelfile</strong></td><td>Konfigurationsdatei in Ollama — definiert System-Prompt, Temperatur etc.</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Wie nutzt man Ollama im eigenen Code (Python)?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Ollama stellt eine lokale REST API bereit — exakt gleich wie OpenAI API, aber lokal:</p>
+    <pre><code># Option 1: Direkt per HTTP
+import httpx
+response = httpx.post("http://localhost:11434/api/chat", json={
+    "model": "qwen3:14b",
+    "messages": [{"role": "user", "content": "Erklaer mir Python"}],
+    "stream": False
+})
+print(response.json()["message"]["content"])
+
+# Option 2: OpenAI-kompatibler Endpunkt
+from openai import OpenAI
+client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+result = client.chat.completions.create(
+    model="qwen3:14b",
+    messages=[{"role": "user", "content": "Hallo!"}]
+)</code></pre>
+    <p><strong>Vorteil:</strong> Jeder bestehende Code der OpenAI nutzt kann einfach auf Ollama umgeleitet werden — nur <code>base_url</code> aendern.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Wann Local LLM vs Cloud LLM?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <table>
+      <tr><th>Situation</th><th>Empfehlung</th></tr>
+      <tr><td>Sensible Daten (Finanzen, Persoenliches)</td><td>Local LLM (bleibt auf Laptop)</td></tr>
+      <tr><td>Maximale Qualitaet / komplexe Tasks</td><td>Cloud (Claude, GPT-4)</td></tr>
+      <tr><td>Viele wiederholende Aufgaben (Loops)</td><td>Local LLM (keine API-Kosten)</td></tr>
+      <tr><td>Offline-Umgebung</td><td>Local LLM</td></tr>
+      <tr><td>Schnelle Antworten auf einfache Fragen</td><td>Local LLM reicht</td></tr>
+      <tr><td>Coding-Hilfe auf hohem Niveau</td><td>Cloud (Claude Sonnet)</td></tr>
+    </table>
+    <p><strong>Alex nutzt aktuell:</strong> Cloud (Claude via Anthropic API) fuer komplexe Aufgaben im ai-agents-army Projekt. Qwen3:14b lokal als kostenlose Alternative fuer einfachere Tasks.</p>
+  </div>
+</div>
+
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: INTERVIEW -->
+<!-- ============================================ -->
+<section id="interview" class="section">
+<h2>Interview-Antworten (Ready-to-Use)</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">"Erzaehlen Sie von Ihrem Projekt"</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <div class="interview-box">
+      <p>"Ich habe zwei Haupt-Projekte: mastermaind.ai ist eine modulare KI-Plattform mit 8 Modulen, speziell fuer die oeffentliche Verwaltung — RAG-Dokumentenanalyse, NL-to-SQL, Prozessautomatisierung, Multi-Agent Orchestrator und MindLight Chat. Die Live-Demo laeuft auf mastermaind.ai.</p>
+      <p>Mein zweites Projekt ist Triple Alpha — ein Multi-Agent-System das automatisch KI-Markt-News sammelt, Trends analysiert und Business-Ideen generiert. Es nutzt eine Pipeline-Architektur mit drei spezialisierten Agenten die ueber einen Orchestrator koordiniert werden. Ergebnisse werden in SQLite persistiert.</p>
+      <p>Beide sind mit Python und FastAPI gebaut. Die Architektur ist On-Premises-faehig: Claude API durch Llama oder Qwen ersetzen, Docker-Deployment, keine Daten verlassen das Netzwerk."</p>
+    </div>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">"Welche Technologien haben Sie verwendet?"</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <div class="interview-box">
+      <p>"Backend: Python mit FastAPI als Web-Framework und Uvicorn als ASGI-Server. Datenbanken: SQLite fuer lokale Persistierung, Supabase/PostgreSQL fuer die Cloud-Demo. Frontend: HTML mit Jinja2-Templates und Tailwind CSS. KI: Claude API von Anthropic, fuer On-Premises Ollama mit Llama oder Qwen. Versionskontrolle: Git mit GitLab. Deployment: Render fuer die Cloud, Docker fuer On-Premises."</p>
+    </div>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">"Was ist RAG?"</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <div class="interview-box">
+      <p>"RAG steht fuer Retrieval-Augmented Generation. Das Prinzip: Statt das LLM aus seinem allgemeinen Trainingswissen antworten zu lassen, fuegen wir das relevante Dokument direkt in den Kontext ein. Das LLM antwortet dann NUR basierend auf diesem Dokument und zitiert die Quelle. Fuer SGB-II heisst das: Man gibt den Gesetzestext rein, stellt eine Frage, und bekommt eine verifizierbare Antwort mit Paragraphen-Referenz."</p>
+    </div>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">"Wie stellen Sie DSGVO-Konformitaet sicher?"</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <div class="interview-box">
+      <p>"Durch On-Premises Deployment. Wenn das KI-Modell lokal auf dem Server der Behoerde laeuft, verlassen keine personenbezogenen Daten das Netzwerk. Open-Source-Modelle wie Llama oder Mistral laufen komplett lokal ueber Ollama. Kein Cloud-Vendor, kein Auftragsverarbeitungsvertrag noetig. DSGVO-konform by Design — nicht durch Vertraege, sondern durch Architektur."</p>
+    </div>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">"Was wissen Sie ueber Pro Arbeit?"</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <div class="interview-box">
+      <p>"Pro Arbeit ist das kommunale Jobcenter des Kreises Offenbach — ein zugelassener kommunaler Traeger nach §6a SGB II. Das heisst, Sie fuehren die SGB-II-Aufgaben eigenstaendig durch, nicht als gemeinsame Einrichtung mit der BA. Die Fachsoftware ist comp.ASS von prosozial, gehostet bei ekom21 in Kassel. Ich weiss auch, dass die Bundesagentur 19 Millionen in KI investiert — mit Aleph Alpha fuer Pharia OS. Die kommunalen Jobcenter werden diesem Trend folgen muessen."</p>
+    </div>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">"Warum von Logistik zu IT?"</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <div class="interview-box">
+      <p>"Zwei Gruende: Erstens habe ich mein ILS-Fernstudium als Fachinformatiker mit Note 1,8 abgeschlossen — der IT-Wechsel war geplant. Zweitens bringe ich 6 Jahre Teamfuehrung bei DHL mit — ich weiss wie es ist, wenn 350 Leute ein System nutzen und Support brauchen. Als IT-Anwendungsbetreuer vereint sich beides: technisches Know-how und die Faehigkeit, zwischen IT und Fachabteilung zu vermitteln."</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: BEGRIFFE -->
+<!-- ============================================ -->
+<section id="begriffe" class="section">
+<h2>Begriffe Quick-Check</h2>
+<p class="dim">Schnellreferenz — jeder Begriff in einem Satz.</p>
+
+<table>
+  <tr><th>Begriff</th><th>Erklaerung (1 Satz)</th></tr>
+  <tr><td><strong>API</strong></td><td>Application Programming Interface — definierte Schnittstelle fuer Kommunikation zwischen Programmen.</td></tr>
+  <tr><td><strong>REST</strong></td><td>Architekturstil fuer APIs: URLs als Ressourcen + HTTP-Methoden (GET/POST/PUT/DELETE) + JSON.</td></tr>
+  <tr><td><strong>HTTP/HTTPS</strong></td><td>Protokoll fuer Web-Kommunikation; HTTPS = verschluesselt (SSL/TLS).</td></tr>
+  <tr><td><strong>JSON</strong></td><td>Datenformat (KEIN Code!) zum Austausch strukturierter Daten: <code>{"key": "value"}</code></td></tr>
+  <tr><td><strong>XML</strong></td><td>Aelteres Datenformat mit Tags: <code>&lt;key&gt;value&lt;/key&gt;</code> — verbreitet bei Behoerden.</td></tr>
+  <tr><td><strong>SQL</strong></td><td>Sprache fuer Datenbankabfragen: <code>SELECT * FROM tabelle WHERE bedingung</code></td></tr>
+  <tr><td><strong>FastAPI</strong></td><td>Python Web-Framework das REST-Endpoints bereitstellt — schnell, modern, mit Auto-Dokumentation.</td></tr>
+  <tr><td><strong>Uvicorn</strong></td><td>ASGI-Server der FastAPI-Apps ausfuehrt und auf HTTP-Anfragen lauscht.</td></tr>
+  <tr><td><strong>Pydantic</strong></td><td>Python-Bibliothek fuer Datenvalidierung — prueft ob Requests die richtigen Felder und Typen haben.</td></tr>
+  <tr><td><strong>Docker</strong></td><td>Isoliert Apps in Containern mit allen Abhaengigkeiten — laeuft ueberall gleich.</td></tr>
+  <tr><td><strong>Git</strong></td><td>Versionskontrolle — speichert die komplette Code-Geschichte als Snapshots (Commits).</td></tr>
+  <tr><td><strong>LLM</strong></td><td>Large Language Model — KI das Text versteht und generiert (Claude, Llama, GPT).</td></tr>
+  <tr><td><strong>RAG</strong></td><td>Retrieval-Augmented Generation — LLM antwortet basierend auf eingefuegten Dokumenten statt Trainingswissen.</td></tr>
+  <tr><td><strong>Prompt Engineering</strong></td><td>Die Kunst, praezise Anweisungen fuer LLMs zu formulieren fuer bessere Ergebnisse.</td></tr>
+  <tr><td><strong>CMIS</strong></td><td>Standard-Schnittstelle fuer Dokumentenmanagement-Systeme (z.B. civento E-Akte).</td></tr>
+  <tr><td><strong>CORS</strong></td><td>Browser-Sicherheitsregel: Server muss erlauben welche Domains seine API nutzen duerfen.</td></tr>
+  <tr><td><strong>DSGVO</strong></td><td>EU-Datenschutzverordnung — On-Premises loest das Problem weil keine Daten das Netzwerk verlassen.</td></tr>
+  <tr><td><strong>On-Premises</strong></td><td>Software laeuft auf eigenen Servern (nicht in der Cloud) — volle Kontrolle ueber Daten.</td></tr>
+  <tr><td><strong>Async/Await</strong></td><td>Asynchrone Programmierung — Server kann waehrend Wartezeit andere Anfragen bedienen.</td></tr>
+  <tr><td><strong>Singleton</strong></td><td>Design Pattern: Nur EINE Instanz von etwas (z.B. eine Datenbankverbindung).</td></tr>
+  <tr><td><strong>Endpoint</strong></td><td>Eine URL in der API die eine bestimmte Funktion ausfuehrt.</td></tr>
+  <tr><td><strong>comp.ASS</strong></td><td>SGB-II-Fachsoftware von prosozial die Pro Arbeit nutzt (gehostet bei ekom21).</td></tr>
+  <tr><td><strong>Ollama</strong></td><td>Software zum lokalen Ausfuehren von Open-Source LLMs (Llama, Qwen, Mistral).</td></tr>
+  <tr><td><strong>SQLite</strong></td><td>Dateibasierte Datenbank — die ganze DB ist EINE Datei, kein Server noetig.</td></tr>
+  <tr><td><strong>PostgreSQL</strong></td><td>Vollwertige Server-Datenbank — fuer Produktion und mehrere gleichzeitige Nutzer.</td></tr>
+  <tr><td><strong>BPMN</strong></td><td>Business Process Model and Notation — standardisierte Notation fuer Geschaeftsprozess-Diagramme.</td></tr>
+</table>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: WORLD ENGINE -->
+<!-- ============================================ -->
+<section id="world-engine" class="section">
+<h2>World Engine — Globale Marktanalyse</h2>
+
+<p class="dim">✅ IMPLEMENTIERT Februar 2026 — agents/world_agent.py, 5 Collectors, 3 SQLite-Tabellen, 5 API-Endpoints, world_daily Workflow. Kosten: 0€/Monat.
+
+Vision: Rohstoffe, Waehrungen, Indizes, Geopolitik und Makro-Daten taeglich sammeln. Nicht fuer Trading — fuer bessere Geschaeftsentscheidungen.</p>
+
+<div class="arch-diagram">
+  <div class="arch-row">
+    <div class="arch-box agent-scout">
+      <div class="label">WorldAgent</div>
+      <div class="sub">agents/world_agent.py (NEU)</div>
+    </div>
+  </div>
+  <div class="arch-arrow">&#9660; holt Daten von &#9650;</div>
+  <div class="arch-row">
+    <div class="arch-box db" onclick="toggleDetail('d-yfinance')">
+      <div class="label">yfinance</div>
+      <div class="sub">Indizes + Forex</div>
+    </div>
+    <div class="arch-box db" onclick="toggleDetail('d-fred')">
+      <div class="label">FRED API</div>
+      <div class="sub">Zinsen + Wirtschaft</div>
+    </div>
+    <div class="arch-box db" onclick="toggleDetail('d-gdelt')">
+      <div class="label">GDELT</div>
+      <div class="sub">Geopolitik-News</div>
+    </div>
+    <div class="arch-box db" onclick="toggleDetail('d-fmp')">
+      <div class="label">FMP API</div>
+      <div class="sub">Rohstoffe</div>
+    </div>
+  </div>
+  <div class="arch-arrow">&#9660; gibt Input an &#9650;</div>
+  <div class="arch-row">
+    <div class="arch-box agent-analyst">
+      <div class="label">Analyst</div>
+      <div class="sub">Welt-Trends erkennen</div>
+    </div>
+    <div class="arch-box agent-planner">
+      <div class="label">Planner</div>
+      <div class="sub">Welt-Trends → Chancen</div>
+    </div>
+  </div>
+</div>
+
+<div id="d-yfinance" class="detail-panel">
+  <h4>yfinance <span class="badge badge-interview">Kein API-Key noetig</span></h4>
+  <p><strong>yfinance</strong> ist eine Python-Bibliothek die Yahoo Finance Daten abruft. Komplett kostenlos, unbegrenzt, kein Account noetig.</p>
+<pre>import yfinance as yf
+
+# Boersenindizes
+dax   = yf.download("^GDAXI", period="1y")   # DAX (Deutschland)
+sp500 = yf.download("^GSPC",  period="1y")   # S&amp;P 500 (USA)
+stoxx = yf.download("^STOXX50E", period="1y") # STOXX 50 (Europa)
+
+# Waehrungen
+eur_usd = yf.download("EURUSD=X", period="1y")
+usd_rub = yf.download("USDRUB=X", period="1y")
+
+# Rohstoffe
+gold = yf.download("GC=F", period="1y")   # Gold Futures
+oil  = yf.download("CL=F", period="1y")   # WTI Crude Oil</pre>
+  <p><strong>Was yf.download() zurueckgibt:</strong> Ein Pandas DataFrame mit Spalten Open, High, Low, Close, Volume — fuer jeden Handelstag.</p>
+</div>
+
+<div id="d-fred" class="detail-panel">
+  <h4>FRED API <span class="badge badge-interview">Federal Reserve — kostenlos</span></h4>
+  <p><strong>FRED</strong> = Federal Reserve Economic Data. Betrieben von der US-Notenbank (Federal Reserve Bank of St. Louis). Unbegrenzte Anfragen, nur kostenloser API-Key noetig.</p>
+<pre>import requests
+
+FRED_KEY = "dein_key_von_fred.stlouisfed.org"
+
+def get_fed_rate():
+    url = "https://api.stlouisfed.org/fred/series/data"
+    params = {
+        'series_id': 'FEDFUNDS',   # US Leitzins
+        'api_key': FRED_KEY,
+        'file_type': 'json'
+    }
+    return requests.get(url, params=params).json()
+
+# Wichtige Series-IDs:
+# FEDFUNDS  → US Leitzins (Fed Funds Rate)
+# ECBDFR    → EZB Leitzins (European Central Bank)
+# CPIAUCSL  → US Inflation (CPI)
+# UNRATE    → US Arbeitslosenquote
+# DEXUSEU   → EUR/USD Kurs (historisch)</pre>
+</div>
+
+<div id="d-gdelt" class="detail-panel">
+  <h4>GDELT Project <span class="badge badge-interview">Unbegrenzt &amp; kein Key</span></h4>
+  <p><strong>GDELT</strong> = Global Database of Events, Language and Tone. Ein akademisches Projekt das alle Weltnachrichten in Echtzeit erfasst, geo-tagged und analysiert. Voellig kostenlos, unbegrenzt.</p>
+<pre>import requests
+
+def get_geopolitical_news(keywords="Germany economy", limit=20):
+    url = "https://api.gdeltproject.org/api/v2/doc/doc"
+    params = {
+        'query': keywords,
+        'mode': 'artlist',
+        'format': 'json',
+        'maxrecords': limit
+    }
+    response = requests.get(url, params=params)
+    return response.json().get('articles', [])
+
+# Beispiel-Abfragen:
+# "Russia Ukraine sanctions"     → Geopolitik
+# "ECB interest rate Germany"    → Wirtschaftspolitik
+# "gold price inflation"         → Rohstoff-Nachrichten</pre>
+</div>
+
+<div id="d-fmp" class="detail-panel">
+  <h4>Financial Modeling Prep (FMP) <span class="badge badge-file">250 Requests/Tag kostenlos</span></h4>
+  <p>Beste kostenlose Quelle fuer Rohstoffpreise: Gold, Silber, Kupfer, OeL, Erdgas.</p>
+<pre>import requests
+
+FMP_KEY = "dein_key_von_financialmodelingprep.com"
+
+def get_commodity_prices():
+    url = f"https://financialmodelingprep.com/api/v3/historical-commodities-prices"
+    params = {'apikey': FMP_KEY}
+    return requests.get(url, params=params).json()
+
+# Gibt zurueck: Gold, Silver, Copper, Crude Oil, Natural Gas
+# mit historischen Tagesdaten</pre>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Alle kostenlosen APIs im Ueberblick</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <table>
+      <tr><th>Daten</th><th>Quelle</th><th>Limit</th><th>API-Key?</th><th>Bewertung</th></tr>
+      <tr><td>Rohstoffe (Gold, Oil)</td><td>Financial Modeling Prep</td><td>250/Tag</td><td>Ja (kostenlos)</td><td>8/10</td></tr>
+      <tr><td>Waehrungen (aktuell)</td><td>Open Exchange Rates</td><td>1.000/Monat</td><td>Ja (kostenlos)</td><td>8.5/10</td></tr>
+      <tr><td>Waehrungen + Indizes</td><td>yfinance (Python)</td><td><strong>Unbegrenzt</strong></td><td><strong>Nein</strong></td><td>8/10</td></tr>
+      <tr><td>Boersenindizes</td><td>yfinance (Python)</td><td><strong>Unbegrenzt</strong></td><td><strong>Nein</strong></td><td>8/10</td></tr>
+      <tr><td>Geopolitische News</td><td>GDELT Project</td><td><strong>Unbegrenzt</strong></td><td><strong>Nein</strong></td><td>9/10</td></tr>
+      <tr><td>Strukturierte News</td><td>NewsAPI</td><td>100/Tag</td><td>Ja (kostenlos)</td><td>8/10</td></tr>
+      <tr><td>Zinsentscheide, Inflation</td><td>FRED (Federal Reserve)</td><td><strong>Unbegrenzt</strong></td><td>Ja (kostenlos)</td><td>10/10</td></tr>
+      <tr><td>BIP, Weltwirtschaft</td><td>World Bank API</td><td><strong>Unbegrenzt</strong></td><td><strong>Nein</strong></td><td>9/10</td></tr>
+    </table>
+    <p><strong>Gesamtkosten: 0€/Monat.</strong> Alle Free Tiers reichen fuer unseren Use Case.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Wie WorldAgent in Triple Alpha passt</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>WorldAgent ist wie Scout, Analyst und Planner gebaut — gleiche Struktur, gleiche Vererbung. Das ist Approach 2: echte BaseAgent-Unterklasse, nicht nur ein Script.</p>
+<pre>class WorldAgent(BaseAgent):           # Erbt von BaseAgent — exakt wie Scout
+    def __init__(self, llm: BaseLLM, config=None):
+        super().__init__(
+            name="World",
+            agent_type="world",
+            llm=llm,
+            config=config or {},
+        )
+        self.http_client = httpx.AsyncClient(timeout=30.0)
+
+    @property
+    def system_prompt(self) -> str:
+        return "Du bist Global Macro Analyst..."
+
+    async def execute(self, context: AgentContext) -> TaskResult:
+        if context.task_type == "collect_all":
+            return await self._collect_all_data()   # 5 Collectors parallel
+        elif context.task_type == "collect_market":
+            return await self._collect_market_data_only()
+        elif context.task_type == "collect_news":
+            return await self._collect_news_only()
+        elif context.task_type == "collect_macro":
+            return await self._collect_macro_only()
+        elif context.task_type == "analyze_world":
+            return await self._analyze_world_state(context.input_data)</pre>
+    <p><strong>Implementierter world_daily Workflow (in orchestrator.py):</strong></p>
+<pre>"world_daily": {
+    "steps": [
+        # Phase 1: Alle 3 parallel (kein depends_on)
+        {"name": "collect_market", "agent": "world", "task_type": "collect_market"},
+        {"name": "collect_news",   "agent": "world", "task_type": "collect_news"},
+        {"name": "collect_macro",  "agent": "world", "task_type": "collect_macro"},
+        # Phase 2: LLM Synthese erst wenn alle 3 fertig
+        {"name": "analyze_world",  "agent": "world", "task_type": "analyze_world",
+         "depends_on": ["collect_market", "collect_news", "collect_macro"]},
+    ]
+}
+
+# WorldAgent ist im Orchestrator registriert:
+self.agents["world"] = WorldAgent(llm=self.llm)</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Neue SQLite-Tabellen</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre>-- 1. Marktdaten (Rohstoffe, Indizes, Forex — alle Datenpunkte)
+world_market_data:
+  id, symbol, name, price, change_pct, currency,
+  data_type ("commodity"/"index"/"forex"), source, collected_at
+
+-- 2. LLM-Analyse Cache (TTL: 2 Stunden, vermeidet wiederholte LLM-Calls)
+world_analysis_cache:
+  id, analysis_type, result (JSON), market_trend,
+  risk_level, summary, collected_at, expires_at
+
+-- 3. Ausfuehrungs-Log (fuer Monitoring/Debugging)
+world_agent_executions:
+  id, task_type, status, total_items,
+  errors (JSON), elapsed_seconds, executed_at
+
+-- Speichern/Lesen via database.py Funktionen:
+save_world_market_data(items)      → Schreibt Marktdaten
+get_latest_world_market_data()     → Liest aktuellste Daten
+save_world_analysis(type, result)  → Cached LLM-Analyse
+get_latest_world_analysis()        → Liest Cache
+log_world_execution(...)           → Protokolliert Ausfuehrung</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">API-Endpoints (FastAPI) — implementiert</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+<pre># Alle in api/main.py:
+
+POST /api/world/scan      → Voller Scan: alle 5 Collectors + LLM (~20 Sek)
+GET  /api/world/market    → Letzte Marktdaten aus SQLite (schnell, kein API-Call)
+POST /api/world/news      → Nur News-Scan (GDELT + NewsAPI)
+POST /api/world/macro     → Nur Makro-Scan (FRED + World Bank)
+GET  /api/world/analysis  → Letzte LLM-Analyse aus Cache
+POST /api/world/workflow  → Startet world_daily Workflow im Orchestrator
+
+# Beispiel:
+curl -X POST http://localhost:8001/api/world/scan</pre>
+    <p>Alle Endpoints geben JSON zurueck. Der <code>/scan</code> Endpoint speichert die Ergebnisse automatisch in SQLite und aktualisiert den Cache.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">asyncio.to_thread() — wie sync-Code in async wird</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Problem:</strong> yfinance ist synchron (blockiert den Event Loop). FastAPI / asyncio sind asynchron. Wenn man blocking Code direkt in async ruft, blockiert der ganze Server.</p>
+    <p><strong>Loesung:</strong> <code>asyncio.to_thread()</code> schickt die Funktion in einen Thread-Pool. Der Event Loop laeuft weiter waehrend yfinance im Hintergrund arbeitet.</p>
+<pre>async def _fetch_yfinance(self, tickers, data_type):
+    def _sync_fetch():                    # Normale (synchrone) Funktion
+        import yfinance as yf
+        items = []
+        for name, ticker in tickers.items():
+            fast_info = yf.Ticker(ticker).fast_info
+            items.append(MarketDataItem(
+                name=name,
+                price=fast_info.last_price,
+                ...
+            ))
+        return items
+
+    # asyncio.to_thread() fuehrt _sync_fetch im Thread-Pool aus
+    # → Event Loop bleibt frei fuer andere Requests
+    return await asyncio.to_thread(_sync_fetch)
+
+# Vergleich:
+# FALSCH: result = yf.Ticker("^GDAXI").fast_info  ← blockiert alles!
+# RICHTIG: result = await asyncio.to_thread(sync_fn) ← non-blocking</pre>
+    <p>Das ist wichtig fuer jede Bibliothek die kein async hat: sqlite3, yfinance, requests, etc.</p>
+  </div>
+</div>
+
+<div class="interview-box">
+  <p>"Ich habe World Engine tatsaechlich implementiert. Der WorldAgent erbt von derselben BaseAgent-Klasse wie Scout und Planner. Er hat 5 Collectors die parallel laufen: Rohstoffe ueber yfinance, Indizes ueber yfinance, Forex ueber yfinance, News ueber GDELT (kostenlos, kein Key), und Makrodaten ueber FRED und World Bank (beide kostenlos). Die LLM-Synthese laeuft am Ende mit Claude. Gesamtkosten: 0 Euro pro Monat. Das System hat 3 neue SQLite-Tabellen, 5 FastAPI-Endpoints, und einen world_daily Workflow im Orchestrator der alle Phasen koordiniert."</p>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: RAG IMPLEMENTIERUNG -->
+<!-- ============================================ -->
+<section id="rag-impl" class="section">
+<h2>RAG Implementierung — numpy statt ChromaDB</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Warum kein ChromaDB? (Python 3.14 Problem)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Problem:</strong> ChromaDB nutzt intern <code>pydantic.v1</code> — diese Version ist inkompatibel mit Python 3.14. Beim Start crasht der Server mit:</p>
+    <pre>pydantic.v1.errors.ConfigError: unable to infer type for attribute "chroma_server_nofile"</pre>
+    <p><strong>Loesung:</strong> ChromaDB komplett ersetzen durch <strong>numpy + pickle</strong> — funktioniert auf jeder Python-Version, keine Dependencies, gleiche Qualitaet fuer kleine Datenmengen (hunderte Chunks, nicht Millionen).</p>
+    <table>
+      <tr><th>ChromaDB</th><th>numpy + pickle</th></tr>
+      <tr><td>Komplexe Abhaengigkeiten (pydantic.v1)</td><td>Numpy ist ueberall verfuegbar</td></tr>
+      <tr><td>Python 3.14 inkompatibel</td><td>Funktioniert auf jeder Version</td></tr>
+      <tr><td>Persistenz in eigenem Format</td><td>Einfache .pkl Datei</td></tr>
+      <tr><td>Sinnvoll ab 10.000+ Chunks</td><td>Perfekt fuer 100-1000 Chunks</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Kosinusaehnlichkeit — wie Vektor-Suche funktioniert</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Embeddings sind Vektoren (Listen von Zahlen). Zwei Texte sind "aehnlich" wenn ihre Vektoren in die gleiche Richtung zeigen.</p>
+    <pre>def _cosine_similarity(a, b):
+    # Wie viel zeigen zwei Vektoren in die gleiche Richtung?
+    # 1.0 = identisch, 0.0 = komplett verschieden, -1.0 = gegensaetzlich
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-10)
+
+# Frage: "Top Business Ideas?"
+# → Embedding der Frage berechnen
+# → Kosinusaehnlichkeit mit ALLEN gespeicherten Chunks
+# → Top-5 aehnlichste nehmen → an LLM schicken</pre>
+    <p>Das <code>+ 1e-10</code> verhindert Division durch 0 bei leeren Vektoren.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Vollstaendiger RAG-Flow im Projekt</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <pre>POST /api/rag/build  →  RAGEngine.build_index()
+  1. Alle daily_report_*.json laden
+  2. Chunks extrahieren (Trends, Ideas, Market, Summary)
+  3. Fuer jeden Chunk: nomic-embed-text via Ollama → Embedding
+  4. numpy Array + Liste speichern als data/rag_index/rag_index.pkl
+
+POST /api/ask  →  RAGEngine.ask(question)
+  1. question → nomic-embed-text → q_embedding
+  2. Kosinusaehnlichkeit mit allen gespeicherten Embeddings
+  3. Top-5 aehnlichste Chunks nehmen
+  4. Kontext bauen: "[source] chunk_text\n\n..."
+  5. Qwen3:14b fragt: "Beantworte Frage basierend auf Kontext"
+  6. Antwort + Sources zurueckgeben</pre>
+    <p><strong>Ergebnis:</strong> 313 Chunks aus Daily Reports indexiert. Antworten auf Deutsch via Qwen3 lokal — kostenlos.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Ollama Embeddings API</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <pre>import httpx
+
+def _get_embedding(text: str) -> list[float]:
+    response = httpx.post(
+        "http://localhost:11434/api/embeddings",
+        json={"model": "nomic-embed-text", "prompt": text},
+        timeout=30,
+    )
+    response.raise_for_status()
+    return response.json()["embedding"]  # Liste von ~768 Zahlen
+
+# nomic-embed-text ist 274 MB — sehr klein, sehr schnell
+# Kein API-Key, kein Internet, kostenlos</pre>
+    <p><strong>Wichtig:</strong> <code>/api/embeddings</code> ist ein anderer Endpoint als <code>/api/generate</code> (fuer Text-Generierung).</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: SQL Q&A -->
+<!-- ============================================ -->
+<section id="sql-qa" class="section">
+<h2>SQL Q&A — Natural Language to SQL (sqlcoder:7b)</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist sqlcoder:7b?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>sqlcoder:7b</strong> ist ein LLM das speziell darauf trainiert wurde, aus natuerlicher Sprache SQL-Abfragen zu generieren. Keine allgemeine KI — nur SQL.</p>
+    <table>
+      <tr><th>Input</th><th>Output</th></tr>
+      <tr><td>"How many world scans this week?"</td><td>SELECT COUNT(*) FROM world_agent_executions WHERE...</td></tr>
+      <tr><td>"Show top 5 most expensive commodities"</td><td>SELECT name, price FROM world_market_data ORDER BY price DESC LIMIT 5</td></tr>
+    </table>
+    <p><strong>Vorteil:</strong> Kein SQL-Wissen noetig fuer den Nutzer. Der Agent "versteht" die Frage und generiert die Abfrage.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Vollstaendiger SQL Q&A Flow</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <pre>POST /api/query  →  SQLQAEngine.query(question)
+
+1. SQLite-Schema extrahieren:
+   SELECT name, sql FROM sqlite_master WHERE type='table'
+
+2. Prompt an sqlcoder:7b:
+   "### Schema:\n{schema}\n### Question:\n{question}\n### SQL:"
+
+3. sqlcoder generiert SQL → bereinigen:
+   - Markdown-Blocks entfernen (```sql ... ```)
+   - Special Tokens entfernen: re.sub(r"&lt;[^&gt;]+&gt;", "", raw)
+   # Problem: sqlcoder gibt manchmal &lt;s&gt; SELECT... aus
+   # Fix: Regex entfernt alle &lt;tag&gt; Tokens
+
+4. Safety Check — nur SELECT erlaubt:
+   if not sql.startswith("SELECT"): → Fehler
+   if "DROP"/"DELETE"/etc in sql: → Fehler
+
+5. SQL auf SQLite ausfuehren → Ergebnis als JSON</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Bekannte Probleme & Loesungen</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <table>
+      <tr><th>Problem</th><th>Ursache</th><th>Loesung</th></tr>
+      <tr><td><code>&lt;s&gt; SELECT...</code></td><td>sqlcoder gibt special tokens aus</td><td><code>re.sub(r"&lt;[^&gt;]+&gt;", "", raw)</code></td></tr>
+      <tr><td>"Nur SELECT erlaubt" obwohl SELECT</td><td>Special Token vor SELECT</td><td>Gleicher Fix oben</td></tr>
+      <tr><td>Falsche Tabellennamen</td><td>sqlcoder kennt Schema nicht gut</td><td>Spezifischere Fragen stellen</td></tr>
+      <tr><td>"no such column"</td><td>Halluzinierter Spaltenname</td><td>Andere Formulierung versuchen</td></tr>
+    </table>
+    <p><strong>Wichtig:</strong> sqlcoder funktioniert besser mit spezifischen Fragen ("How many rows in world_market_data?") als mit vagen ("Show all tables").</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: TROUBLESHOOTING WINDOWS/POWERSHELL -->
+<!-- ============================================ -->
+<section id="troubleshooting" class="section">
+<h2>Troubleshooting — Windows & PowerShell</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">PowerShell vs curl — der wichtigste Unterschied</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Problem:</strong> In PowerShell ist <code>curl</code> ein Alias fuer <code>Invoke-WebRequest</code> — nicht das echte Unix-curl. JSON-Escaping funktioniert anders.</p>
+    <table>
+      <tr><th>Was</th><th>PowerShell Befehl</th></tr>
+      <tr><td>Echtes curl nutzen</td><td><code>curl.exe -X POST http://... -d '{"key":"val"}'</code></td></tr>
+      <tr><td>GET Request</td><td><code>Invoke-RestMethod -Uri http://localhost:8001/health</code></td></tr>
+      <tr><td>POST mit JSON</td><td><code>Invoke-RestMethod -Method POST -Uri http://... -ContentType "application/json" -Body '{"question":"..."}'</code></td></tr>
+      <tr><td>JSON Body in PowerShell</td><td>Einfache Anfuehrungszeichen aussen, doppelte innen: <code>'{"key":"val"}'</code></td></tr>
+    </table>
+    <pre># FALSCH in PowerShell:
+curl -X POST http://localhost:8001/api/ask -d "{\"question\":\"test\"}"
+# → Fehler: Parameter "-X" nicht gefunden
+
+# RICHTIG:
+Invoke-RestMethod -Method POST -Uri http://localhost:8001/api/ask `
+  -ContentType "application/json" `
+  -Body '{"question": "Was sind die Top Ideas?"}'</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Server-Management — zwei Terminals</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Ein uvicorn-Server blockiert das Terminal komplett. Du brauchst immer <strong>zwei Terminals</strong>:</p>
+    <table>
+      <tr><th>Terminal 1 (Server)</th><th>Terminal 2 (Befehle)</th></tr>
+      <tr><td>python -m uvicorn api.main:app --host 127.0.0.1 --port 8001</td><td>curl.exe / Invoke-RestMethod Tests</td></tr>
+      <tr><td>Zeigt Server-Logs + Fehler</td><td>Eingabe von Befehlen</td></tr>
+      <tr><td>Ctrl+C zum Stoppen</td><td>Bleibt frei fuer Eingaben</td></tr>
+    </table>
+    <p><strong>Wichtig:</strong> Nach Code-Aenderungen immer Server neu starten (Ctrl+C → uvicorn neu). Python cached alle Module — ohne Neustart laedt es alten Code.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Port-Konflikte loesen (Windows)</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <pre># Wer hoert auf Port 8001?
+netstat -ano | findstr :8001
+# Output: TCP  0.0.0.0:8001  0.0.0.0:0  ABHOEREN  35616
+#                                                    ↑ PID
+
+# Prozess beenden:
+taskkill /PID 35616 /F
+
+# Wenn "Prozess nicht gefunden" → Port ist schon frei
+# Wenn Port trotzdem belegt → anderen Port nutzen:
+python -m uvicorn api.main:app --port 8002</pre>
+    <p><strong>Sicherheit:</strong> <code>0.0.0.0</code> = im ganzen Netzwerk erreichbar. <code>127.0.0.1</code> = nur lokal. Immer <code>--host 127.0.0.1</code> fuer Entwicklung verwenden.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">pip install im richtigen Environment</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Wenn du mehrere Python-Versionen hast, landet <code>pip install</code> vielleicht im falschen Environment:</p>
+    <pre># FALSCH — koennte falsches Python treffen:
+pip install chromadb
+
+# RICHTIG — im Projektordner:
+cd C:\Users\alexb\ai-agents-army
+python -m pip install chromadb
+
+# Oder explizit mit Python-Pfad:
+C:\Users\alexb\AppData\Local\Python\pythoncore-3.14-64\python.exe -m pip install chromadb</pre>
+    <p>Alex nutzt Python 3.14 (sehr neu — viele Packages noch inkompatibel).</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: PYTHON 3.14 KOMPATIBILITAET -->
+<!-- ============================================ -->
+<section id="python314" class="section">
+<h2>Python 3.14 — Kompatibilitaetsprobleme</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Was ist das Problem mit Python 3.14?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Python 3.14 ist sehr neu (2025). Viele grosse Packages haben ihre Abhaengigkeiten noch nicht angepasst, besonders alten Code der <code>pydantic v1</code> nutzt.</p>
+    <table>
+      <tr><th>Package</th><th>Problem</th><th>Loesung</th></tr>
+      <tr><td>chromadb</td><td>Nutzt pydantic.v1 intern → crasht</td><td>Ersetzen durch numpy+pickle</td></tr>
+      <tr><td>pydantic v1</td><td>Type inference schlaegt fehl auf 3.14</td><td>pydantic v2 nutzen</td></tr>
+      <tr><td>aeltere Packages</td><td>Oft noch nicht fuer 3.14 getestet</td><td>Aeltere Python Version erwaegen</td></tr>
+    </table>
+    <p><strong>Fehler-Symptom:</strong></p>
+    <pre>pydantic.v1.errors.ConfigError: unable to infer type for attribute "chroma_server_nofile"</pre>
+    <p><strong>Langfristig:</strong> Python 3.11 oder 3.12 sind stabiler fuer AI-Projekte (breitere Package-Kompatibilitaet).</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Strategie: Dependencies vermeiden wo moeglich</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Loesung fuer Kompatibilitaetsprobleme: Grosse Framework-Dependencies durch einfachere Standard-Library Loesungen ersetzen.</p>
+    <table>
+      <tr><th>Kompliziert (Kompatibilitaetsrisiko)</th><th>Einfach (stabil)</th></tr>
+      <tr><td>ChromaDB (Vektor-DB)</td><td>numpy + pickle (Standard)</td></tr>
+      <tr><td>Redis (Cache)</td><td>Python dict + TTL-Logik</td></tr>
+      <tr><td>Celery (Task Queue)</td><td>asyncio + threading</td></tr>
+    </table>
+    <p><strong>Regel:</strong> Je weniger externe Dependencies, desto weniger Kompatibilitaetsprobleme. Nur installieren was wirklich noetig ist.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: DSGVO & ON-PREMISES -->
+<!-- ============================================ -->
+<section id="dsgvo" class="section">
+<h2>DSGVO & On-Premises — Datenschutz für Behörden</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">DSGVO-Anforderungen vs Cloud</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Das Problem:</strong> Behörden (besonders in DE) dürfen Bürgerdaten <strong>NICHT</strong> in die Cloud schicken. DSGVO Artikel 28 + 32 + Landesdatenschutzgesetze (z.B. Hessisches DSG).</p>
+    <table>
+      <tr><th>Cloud-Lösung (z.B. ChatGPT API)</th><th>On-Premises Lösung (z.B. Llama lokal)</th></tr>
+      <tr><td>❌ Daten an api.anthropic.com (USA)</td><td>✅ Daten bleiben auf dem Server (lokal)</td></tr>
+      <tr><td>❌ Daten könnte bei Breach exponiert sein</td><td>✅ Nur Behörden-IT hat Zugriff</td></tr>
+      <tr><td>❌ Datentransfer-Verträge kompliziert</td><td>✅ Keine Datenübergabe an Dritte</td></tr>
+      <tr><td>❌ DSGVO-Audit schwierig</td><td>✅ Vollständige Kontrolle über Datenfluss</td></tr>
+    </table>
+    <p><strong>Darum On-Premises:</strong> mastermaind.ai lädt Llama/Mistral lokal. Alle Daten bleiben auf dem Server der Pro Arbeit. Das ist der einzige Weg für öffentliche Behörden in Deutschland.</p>
+    <div class="interview-box">
+      <p>"On-Premises bedeutet: Der LLM-Code, die Datenbank, alles läuft auf den Servern der Behörde selbst — nicht in der Cloud. Das ist essentiell für DSGVO-Compliance, weil Bürgerdaten (SGB-II Anträge, Adressen, etc.) niemals das Behörden-Netzwerk verlassen dürfen."</p>
+    </div>
+  </div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Technische Umsetzung: Llama lokal via Ollama</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p>Statt Claude API (Cloud) nutzt Pro Arbeit einen <strong>lokalen LLM via Ollama</strong>:</p>
+    <pre># Installation auf dem Behörden-Server:
+ollama pull llama2-7b         # 4 GB, kostenlos
+ollama pull mistral           # Alternativer kleiner Model
+ollama serve --host 0.0.0.0   # Server läuft lokal
+
+# Python-Code spricht den lokalen Server an:
+import httpx
+response = httpx.post("http://127.0.0.1:11434/api/generate", json={
+    "model": "llama2-7b",
+    "prompt": "Beantworte diese Frage: ...",
+})
+# Keine Internet-Verbindung nötig!
+# Keine API-Keys!
+# 100% Datenschutz!</pre>
+    <p><strong>Vorteil:</strong> Kostenlos, privat, schnell, kein Internet nötig. Läuft auch auf älteren Server-Hardware (RTX 4090 für Home-Prototyping).</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">DSGVO Audit — was der Chef fragen könnte</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Chef könnte fragen:</strong> "Wie stellen wir sicher dass unsere Datenschützer die Lösung genehmigen?"</p>
+    <p><strong>Deine Antwort:</strong></p>
+    <ul>
+      <li><strong>Datenfluss dokumentieren:</strong> Zeig im Diagramm dass alle Daten lokal bleiben</li>
+      <li><strong>Audit Logs:</strong> Alle API-Calls werden geloggt (wer hat was abgefragt, wann)</li>
+      <li><strong>Encryption:</strong> Datenbank kann verschlüsselt werden (SQLite mit SQLCipher)</li>
+      <li><strong>Access Control:</strong> Nur autorisierte Nutzer (AD-Integration)</li>
+      <li><strong>Backup-Strategie:</strong> Verschlüsselte Backups bleiben in der Behörde</li>
+    </ul>
+    <p>Das ist die Compliance-Checkliste die der Datenschützer will. <strong>NL→SQL mit lokal gehosteter DB</strong> = automatisch DSGVO-sicher.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: ERROR HANDLING & FALLBACKS -->
+<!-- ============================================ -->
+<section id="error-handling" class="section">
+<h2>Error Handling & Fallbacks — wenn die KI halluziniert</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Problem: LLM Halluziniert falsche SQL</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Szenario:</strong> Ein Behördenmitarbeiter fragt: "Wie viele SGB-II Anträge vom 1. Jan?" Der LLM generiert:</p>
+    <pre>SELECT * FROM sgb_antraege WHERE created_at = '2024-01-01'
+-- Problem: Spalte heißt "antrag_datum" nicht "created_at"!</pre>
+    <p>Wenn das direktsexekutiert wird → <code>no such column "created_at"</code> Fehler, und der User sieht nichts hilfreiches.</p>
+    <p><strong>Lösung = Multi-Layer Error Handling:</strong></p>
+    <table>
+      <tr><th>Layer</th><th>Was passiert</th></tr>
+      <tr><td>1. SQL Validation</td><td>Vor Execution: Spalten-Namen gegen aktuelles Schema prüfen</td></tr>
+      <tr><td>2. Dry Run</td><td>Query auf einem kleinen Test-Dataset ausführen</td></tr>
+      <tr><td>3. Fallback Prompt</td><td>Fehler an LLM zurück: "Diese Spalte existiert nicht, versuche nochmal"</td></tr>
+      <tr><td>4. Cache</td><td>Häufige Fragen (z.B. "Anträge gestern") sind gecacht → keine LLM-Fehler</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Praktische Fehlerbehandlung im Code</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <pre>async def nl_to_sql(question: str):
+    try:
+        # 1. LLM fragt
+        sql = await llm.generate_sql(question)
+
+        # 2. Validierung: Nur SELECT erlaubt
+        if not sql.strip().upper().startswith("SELECT"):
+            raise ValueError("Nur SELECT erlaubt")
+
+        # 3. Schema-Check: Spalten existieren?
+        schema = db.get_schema()
+        sql_columns = extract_column_names(sql)
+        invalid_cols = [c for c in sql_columns if c not in schema]
+        if invalid_cols:
+            # RETRY mit Fehler-Info
+            return await nl_to_sql_retry(question, f"Spalten nicht gefunden: {invalid_cols}")
+
+        # 4. Dry Run auf Test-Daten
+        result = db.execute_safe(sql, limit=1)
+
+        # 5. Return + Cache für nächstes Mal
+        cache.set(question, sql, ttl=3600)
+        return result
+
+    except Exception as e:
+        # Fehler an User mit Erklärung
+        return {
+            "error": str(e),
+            "suggestion": "Versuche: 'Anträge von Januar?'",
+            "available_tables": schema.tables
+        }</pre>
+    <p><strong>Wichtig:</strong> Dieser Fehler-Loop verhindert dass die KI "halluziniert" → der User bekommt hilfreiche Vorschläge statt Crash.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">RAG Error Handling — was wenn die Suche nichts findet?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Problem:</strong> User fragt: "Was sind die Prozessschritte für XYZ?" Aber das Wort "XYZ" existiert in keinem Document.</p>
+    <p><strong>Fallback-Strategien:</strong></p>
+    <ol>
+      <li><strong>Fuzzy Search:</strong> Ähnliche Wörter suchen (z.B. "XYZ" → "XYN" wenn typo)</li>
+      <li><strong>Semantic Search:</strong> Wenn kein exact match → Top-3 semantisch ähnliche Results zeigen</li>
+      <li><strong>Dokumentation verlinken:</strong> "Diese Frage konnte ich nicht beantworten. Hier ist die Doku: [link]"</li>
+      <li><strong>LLM-Retry:</strong> Frage an LLM mit allen verfügbaren Docs → LLM findet Antwort wenn irgendwo relevant</li>
+    </ol>
+    <pre>def rag_ask(question):
+    results = rag.search(question, top_k=3)
+
+    if not results:
+        # Fallback 1: Fuzzy Search
+        results = rag.fuzzy_search(question)
+
+    if not results:
+        # Fallback 2: Alle Docs an LLM
+        all_text = "\n\n".join(rag.all_documents)
+        return llm.answer(question, context=all_text)
+
+    # Fallback 3: Dokumentation verlinken
+    return {
+        "answer": llm.answer(question, context=results),
+        "confidence": calculate_confidence(results),
+        "docs": [doc.link for doc in results]
+    }</pre>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: ENTERPRISE FEATURES -->
+<!-- ============================================ -->
+<section id="enterprise" class="section">
+<h2>Enterprise Features — Multi-Mandanten, Audit Logs, Compliance</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Multi-Mandanten Architektur</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Szenario:</strong> Pro Arbeit hat 5 Abteilungen: Soziales, Steuern, Gesundheit, Verkehr, Bauwesen. Jede braucht ihre eigenen Daten + Reports.</p>
+    <p><strong>Datenbank-Design:</strong></p>
+    <pre>-- Ein Tenant pro Abteilung
+Tabelle: tenants
+  - tenant_id (Soziales, Steuern, etc)
+  - tenant_name
+  - database_connection (zeigt auf richtige DB)
+  - max_queries_per_month
+
+-- Alle Queries sind tenant-spezifisch
+SELECT * FROM sgb_antraege
+WHERE tenant_id = 'soziales' AND created_at > NOW() - INTERVAL 7 DAY</pre>
+    <p><strong>Vorteil:</strong> Datenschützer ist happy (Abteilungen können nicht auf fremde Daten zugreifen). Skalierbarkeit (jede Abteilung hat separate Reporting).</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Audit Logging — Compliance-Anforderung</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Behörden-Anforderung:</strong> "Wer hat was abgefragt, wann, mit welchem Ergebnis?" → Audit-Trail für DSGVO-Prüfungen.</p>
+    <pre>-- Jede Query wird geloggt
+INSERT INTO audit_log (
+  tenant_id, user_id, query_type, timestamp, input, output_rows, status
+) VALUES (
+  'soziales', 'mueller.hans@stadt.de', 'NL_TO_SQL',
+  2026-02-23 10:15:32, 'Anträge Februar?', 247, 'SUCCESS'
+)
+
+-- Chef kann überprüfen:
+SELECT user_id, COUNT(*) as queries
+FROM audit_log
+WHERE DATE(timestamp) = '2026-02-23'
+GROUP BY user_id;</pre>
+    <p><strong>Das ist essentiell:</strong> Der Datenschützer will sehen dass nur autorisierte Personen auf sensitive Daten zugreifen.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Rate Limiting & DDoS-Schutz</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Problem:</strong> Ein Bug im Frontend schickt 10.000 Queries pro Minute → Server bricht zusammen.</p>
+    <p><strong>Lösung:</strong> Rate Limiting pro User + pro Endpoint:</p>
+    <pre># app/limiter.py - schon implementiert in mastermaind.ai
+limiter = RateLimiter(
+    queries_per_user_per_hour=500,  # Max 500 Queries/Stunde pro User
+    queries_per_tenant_per_day=50000,  # Ganze Abteilung hat Limit
+    concurrent_queries=10  # Max 10 gleichzeitige Queries
+)
+
+@app.post("/api/query")
+@limiter.limit("100/hour")  # Globales Limit
+async def query_endpoint(question: str):
+    # Falls User Limit überschritten:
+    if limiter.check_user_limit_exceeded(user_id):
+        return {"error": "Query-Limit überschritten. Bitte später versuchen."}
+
+    return await execute_query(question)</pre>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: TESTING & VALIDATION -->
+<!-- ============================================ -->
+<section id="testing" class="section">
+<h2>Testing & Validation — sicherstellen dass alles funktioniert</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Unit Tests für NL→SQL</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Beispiel Test-Cases:</strong> Was soll SQL-Generator können?</p>
+    <pre>import pytest
+from app.sql_qa import SQLQAEngine
+
+@pytest.fixture
+def sql_engine():
+    return SQLQAEngine("test_database.db")
+
+# Test 1: Einfache Frage
+def test_simple_count(sql_engine):
+    result = sql_engine.query("Wie viele Anträge?")
+    assert result["sql"].startswith("SELECT COUNT")
+    assert result["count"] >= 0
+
+# Test 2: Date-Filtering
+def test_date_filter(sql_engine):
+    result = sql_engine.query("Anträge vom Januar?")
+    assert "WHERE" in result["sql"]
+    assert "2024-01-01" in result["sql"] or "MONTH" in result["sql"]
+
+# Test 3: Falsche Query (Safety)
+def test_no_delete_allowed(sql_engine):
+    result = sql_engine.query("Lösche alle Anträge")
+    assert result["error"] is not None
+    assert "DELETE nicht erlaubt" in result["error"]
+
+# Test 4: Halluzination Detection
+def test_nonexistent_table(sql_engine):
+    result = sql_engine.query("Zeige mir Daten aus Tabelle XYZ")
+    # Sollte mit hilfreichem Fehler antworten, nicht crashen
+    assert "error" in result
+    assert "XYZ" in result["error"] or "Tabelle nicht gefunden" in result["error"]</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Integration Tests — End-to-End Flows</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Test: User fragt → LLM antwortet → Daten werden korrekt angezeigt</strong></p>
+    <pre>@pytest.mark.asyncio
+async def test_end_to_end_nl_to_sql():
+    # Setup
+    client = AsyncClient(app=app, base_url="http://test")
+
+    # Step 1: User stellt Frage
+    response = await client.post("/api/query", json={
+        "question": "Wie viele Anträge wurden im Februar 2024 eingereicht?"
+    })
+    assert response.status_code == 200
+
+    # Step 2: Response hat Daten
+    data = response.json()
+    assert "results" in data
+    assert len(data["results"]) > 0
+
+    # Step 3: Audit Log wurde erstellt
+    logs = db.query("SELECT * FROM audit_log ORDER BY timestamp DESC LIMIT 1")
+    assert len(logs) > 0
+    assert logs[0]["user_id"] == "test_user"
+
+    # Step 4: Cache funktioniert (zweite Anfrage is schneller)
+    import time
+    start = time.time()
+    response2 = await client.post("/api/query", json={
+        "question": "Wie viele Anträge wurden im Februar 2024 eingereicht?"
+    })
+    elapsed = time.time() - start
+    assert elapsed < 0.5  # Cached = schnell!</pre>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Validation: Ist die Query-Antwort sinnvoll?</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Problem:</strong> SQL ist syntaktisch korrekt aber semantisch falsch. Z.B.: "Anträge pro Abteilung" gibt 1 Row statt 5.</p>
+    <p><strong>Sanity Checks:</strong></p>
+    <pre>def validate_query_result(question: str, sql: str, result: list):
+    """Ist die Antwort sinnvoll?"""
+
+    # Check 1: Zu wenig Zeilen?
+    if "pro" in question.lower() and len(result) == 1:
+        return {
+            "valid": False,
+            "warning": "Frage deutet auf Gruppierung hin, aber nur 1 Ergebnis. Prüf SQL.",
+            "suggestion": "Vielleicht fehlte GROUP BY?"
+        }
+
+    # Check 2: Zu viele Zeilen?
+    if len(result) > 100000:
+        return {
+            "valid": False,
+            "warning": "Über 100k Zeilen — das ist verdächtig groß",
+            "suggestion": "Wahrscheinlich missing WHERE clause?"
+        }
+
+    # Check 3: Zahlen-Plausibilität
+    if "Prozent" in question:
+        # Ergebnis sollte zwischen 0-100 sein
+        for row in result:
+            for val in row.values():
+                if isinstance(val, (int, float)) and (val < 0 or val > 100):
+                    return {
+                        "valid": False,
+                        "warning": f"Wert {val} ist keine Prozentangabe"
+                    }
+
+    return {"valid": True}</pre>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: BEHÖRDEN-GLOSSAR -->
+<!-- ============================================ -->
+<section id="glossary" class="section">
+<h2>Behörden-Glossar — Suchbegriffe & Kontext</h2>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">SGB-II / SGB-III / SGB-XII — das Regelwerk</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <table>
+      <tr><th>Abkürzung</th><th>Voller Name</th><th>Was ist das</th><th>Relevance für NL→SQL</th></tr>
+      <tr><td><strong>SGB-II</strong></td><td>Sozialgesetzbuch Zweites Buch</td><td>Grundsicherung für Arbeitsuchende (Hartz IV)</td><td>Hauptdatenbank: Anträge, Leistungsempfänger, Vermögensüberprüfung</td></tr>
+      <tr><td><strong>SGB-III</strong></td><td>Sozialgesetzbuch Drittes Buch</td><td>Arbeitslosenversicherung</td><td>Versicherungs-Daten, Beitragszahlungen</td></tr>
+      <tr><td><strong>SGB-XII</strong></td><td>Sozialgesetzbuch Zwölftes Buch</td><td>Sozialhilfe (Grundsicherung, Hilfe zur Pflege)</td><td>Ältere Menschen, Behinderte, Pflegebedarf</td></tr>
+      <tr><td><strong>BAföG</strong></td><td>Ausbildungsförderung</td><td>Finanzielle Unterstützung für Studenten/Azubis</td><td>Antragsverwaltung, Berechtigung prüfen</td></tr>
+    </table>
+    <p><strong>Für den Chef wichtig:</strong> Wenn ein Behördenmitarbeiter sagt "SGB-II Daten abfragen", dann weiß der LLM automatisch: Diese Query läuft gegen die `sgb_ii_antraege` Tabelle, nicht `sgb_iii`.</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Weitere Behörden-Abkürzungen</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <table>
+      <tr><th>Abkürzung</th><th>Bedeutung</th><th>Im Kontext von Queries</th></tr>
+      <tr><td><strong>BA</strong></td><td>Bundesagentur für Arbeit</td><td>Die Behörde die SGB-II/III verwaltet</td></tr>
+      <tr><td><strong>JobCenter</strong></td><td>Lokale Dienststelle der BA</td><td>"Anträge von JobCenter Frankfurt?" → Filterung nach Standort</td></tr>
+      <tr><td><strong>Vermögen</strong></td><td>Finanzielle Mittel eines Antragstellers</td><td>"Wer hat über 5000€ Vermögen?" → WHERE vermogen > 5000</td></tr>
+      <tr><td><strong>Bedürftigkeit</strong></td><td>Wirtschaftliche Notlage</td><td>Status: Bedürftig / Nicht-Bedürftig</td></tr>
+      <tr><td><strong>Wartezeit</strong></td><td>Bearbeitungsdauer eines Antrags</td><td>"Durchschnittliche Wartezeit?" → Zeitstempel-Differenzen</td></tr>
+      <tr><td><strong>Bescheid</strong></td><td>Behördliche Entscheidung schriftlich</td><td>"Wann wurde der Bescheid erlassen?" → bescheid_datum</td></tr>
+      <tr><td><strong>Revision</strong></td><td>Einspruch gegen Bescheid</td><td>"Wie viele Revisionen offen?" → status='revision'</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+  <div class="card-header"><span class="title">Häufige Queries die der Chef fragen könnte</span><span class="arrow">&#9654;</span></div>
+  <div class="card-body">
+    <p><strong>Das sind realistische Fragen aus einer Behörde:</strong></p>
+    <ol>
+      <li><strong>"Wie viele Anträge wurden im Februar eingereicht?"</strong>
+        <br/>→ SELECT COUNT(*) FROM sgb_ii_antraege WHERE MONTH(antrag_datum)=2</li>
+      <li><strong>"Durchschnittliche Bearbeitungszeit?"</strong>
+        <br/>→ SELECT AVG(DATEDIFF(bescheid_datum, antrag_datum)) as tage FROM sgb_ii_antraege</li>
+      <li><strong>"Wie viele Personen haben über 10.000€ Vermögen?"</strong>
+        <br/>→ SELECT COUNT(DISTINCT person_id) FROM sgb_ii_vermogen WHERE betrag > 10000</li>
+      <li><strong>"Top 5 Gründe für Ablehnung?"</strong>
+        <br/>→ SELECT grund_ablehnung, COUNT(*) FROM sgb_ii_antraege WHERE status='abgelehnt' GROUP BY grund_ablehnung ORDER BY COUNT(*) DESC LIMIT 5</li>
+      <li><strong>"Wie lange dauert es durchschnittlich bis zum Bescheid?"</strong>
+        <br/>→ SELECT AVG(DATEDIFF(day, antrag_datum, bescheid_datum)) FROM sgb_ii_antraege WHERE status='entschieden'</li>
+    </ol>
+    <p><strong>Wichtig für dein Interview:</strong> Du solltest mindestens 2-3 dieser Queries von Hand schreiben können. Das zeigt dass du "Behörden-Denken" verstehst.</p>
+  </div>
+</div>
+</section>
+
+<div style="height:100px"></div>
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script>
+function toggleDetail(id) {
+  const allPanels = document.querySelectorAll('.detail-panel');
+  const panel = document.getElementById(id);
+  const wasVisible = panel.classList.contains('visible');
+
+  allPanels.forEach(p => p.classList.remove('visible'));
+  document.querySelectorAll('.arch-box').forEach(b => b.classList.remove('active'));
+
+  if (!wasVisible) {
+    panel.classList.add('visible');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+// Navigation active state
+const navLinks = document.querySelectorAll('.nav a');
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 80;
+    if (window.scrollY >= top) current = section.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+
+// Search
+function filterNav(query) {
+  query = query.toLowerCase();
+  navLinks.forEach(link => {
+    const text = link.textContent.toLowerCase();
+    link.style.display = !query || text.includes(query) ? 'block' : 'none';
+  });
+  if (query.length > 2) {
+    document.querySelectorAll('.card').forEach(card => {
+      const text = card.textContent.toLowerCase();
+      if (text.includes(query)) {
+        card.style.display = 'block';
+        card.classList.add('open');
+      }
+    });
+  }
+}
+
+// Open all cards on Ctrl+Shift+A
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+    document.querySelectorAll('.card').forEach(c => c.classList.toggle('open'));
+  }
+});
+</script>
+</body>
+</html>
